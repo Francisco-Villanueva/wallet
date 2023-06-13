@@ -1,4 +1,4 @@
-const { Wallet, User } = require("../db");
+const { Wallet, User, Spent, Type } = require("../db");
 const axios = require("axios");
 const { ANIMALES, OBJETOS, COMIDAS } = require("../aliasServices");
 
@@ -97,6 +97,14 @@ const getUsers = async (req, res) => {
       include: {
         model: Wallet,
         as: "wallet",
+        include: {
+          model: Spent,
+          as: "spent",
+          include: {
+            model: Type,
+            as: "type",
+          },
+        },
       },
     });
 
@@ -146,9 +154,18 @@ const getUsersById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const user = await User.findOne({
-      where: {
-        userId: id,
+    const user = await User.findByPk(id, {
+      include: {
+        model: Wallet,
+        as: "wallet",
+        include: {
+          model: Spent,
+          as: "spent",
+          include: {
+            model: Type,
+            as: "type",
+          },
+        },
       },
     });
 

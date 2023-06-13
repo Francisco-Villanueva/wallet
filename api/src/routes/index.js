@@ -20,14 +20,16 @@ const {
   getSpents,
   deleteSpent,
   getSpentsById,
-  getSpentsByTypes,
+  getAllTpyes,
+  createTypes,
 } = require("./spentServices");
 
 router.post("/spent", createSpent);
 router.get("/spent", getSpents);
 router.get("/spent/:spentId", getSpentsById);
 router.delete("/spent/:spentId", deleteSpent);
-router.get("/types", getSpentsByTypes);
+router.get("/types", getAllTpyes);
+router.post("/types", createTypes);
 
 const { getWallets, getWalletByUserId } = require("./walletServices");
 

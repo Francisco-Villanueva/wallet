@@ -9,9 +9,6 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    spentId: {
-      type: DataTypes.UUID,
-    },
     typeName: {
       type: DataTypes.STRING,
     },

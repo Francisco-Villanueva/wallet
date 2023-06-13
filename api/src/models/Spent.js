@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
     spentName: {
       type: DataTypes.STRING,
     },
-    idType: {
+    typeId: {
       type: DataTypes.STRING,
     },
     amount: {
@@ -32,8 +32,11 @@ module.exports = (sequelize) => {
       type: DataTypes.BLOB("long"),
       allowNull: true,
     },
-    userId:{
+    userId: {
       type: DataTypes.UUID,
-    }
+    },
+    walletId: {
+      type: DataTypes.UUID,
+    },
   });
 };

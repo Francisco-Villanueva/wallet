@@ -2,7 +2,12 @@ const { Spent, Type, Wallet } = require("../db");
 const { TYPES } = require("../data");
 const getSpents = async (req, res) => {
   try {
-    const allSpents = await Spent.findAll({where:{userId}, include: [Type, Wallet]});
+    const allSpents = await Spent.findAll({
+      include: {
+        model: Type,
+        as: "type",
+      },
+    });
 
     res.status(200).json(allSpents);
   } catch (error) {
@@ -10,29 +15,31 @@ const getSpents = async (req, res) => {
     res.status(400).send(error);
   }
 };
-const getAllTpyes = async () => {
-  try {
-    const allTypes = await Type.findAll();
-    
-    res.status(200).json(allTypes);
-  } catch (error) {
-    console.log("ERROR:  ", error);
-  }
-};
 const createSpent = async (req, res) => {
   try {
-    const { name, type, amount, place, descripcion, paymentProof } = req.body;
+    const {
+      spentName,
+      typeId,
+      amount,
+      spentPlace,
+      spentDescripcion,
+      paymentProof,
+      userId,
+      walletId,
+    } = req.body;
 
-    if (!name || !type || !amount || !place || !descripcion) {
+    if (!spentName || !typeId || !amount || !spentPlace || !spentDescripcion) {
       return res.status(400).send("Data mistakes!");
     }
     const newSpent = await Spent.create({
-      name: name,
-      type: type,
+      spentName: spentName,
+      typeId: typeId,
       amount: amount,
-      place: place,
-      descripcion: descripcion,
+      spentPlace: spentPlace,
+      spentDescripcion: spentDescripcion,
       paymentProof: paymentProof,
+      userId: userId,
+      walletId: walletId,
     });
 
     res.status(200).send(newSpent);
@@ -46,7 +53,7 @@ const deleteSpent = async (req, res) => {
     const { id } = req.params;
     const spent = await Spent.findOne({
       where: {
-        id: id,
+        spentId: id,
       },
     });
     if (spent.length === 0) {
@@ -79,40 +86,44 @@ const getSpentsById = async (req, res) => {
     res.status(400).send(error);
   }
 };
-const setMountByType = async (tipos) => {
+
+const getAllTpyes = async (req, res) => {
   try {
-    const allSpents = await Spent.findAll();
-    // console.log("ALL SPENTS: ", allSpents[0]["dataValues"].amount);
-    tipos.forEach((element) => {
-      element.mount = 0;
+    const allTypes = await Type.findAll({
+      include: {
+        model: Spent,
+        as: "spent",
+      },
     });
-    for (var i = 0; i < tipos.length; i++) {
-      for (var j = 0; j < allSpents.length; j++) {
-        if (allSpents[j]["dataValues"].type === tipos[i].name) {
-          tipos[i].mount += allSpents[j]["dataValues"].amount;
-        }
-      }
-    }
 
-    return tipos;
+    res.status(200).json(allTypes);
   } catch (error) {
     console.log("ERROR:  ", error);
   }
 };
-
-const getSpentsByTypes = async (req, res) => {
+const createTypes = async (req, res) => {
   try {
-    const resp = await setMountByType(TYPES);
-    res.status(200).json(resp);
+    const { typeName } = req.body;
+
+    if (!typeName) {
+      return res.status(400).send("Data mistakes!");
+    }
+    const newType = await Type.create({
+      typeName: typeName,
+    });
+
+    res.status(200).send(newType);
   } catch (error) {
     console.log("ERROR:  ", error);
+    res.status(404).json(error);
   }
 };
+
 module.exports = {
   createSpent,
   getSpents,
   deleteSpent,
   getSpentsById,
-  getSpentsByTypes,
-  getAllTpyes
+  getAllTpyes,
+  createTypes,
 };
