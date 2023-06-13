@@ -1,0 +1,132 @@
+.form-container {
+  background-color: #cecece;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 90vw;
+}
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputContainer {
+  position: relative;
+  height: 30px;
+  margin-bottom: 1rem;
+}
+
+.register-input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #dadce0;
+  border-radius: 7px;
+  font-size: 16px;
+  padding: 5px 20px;
+  outline: none;
+  background: none;
+  z-index: 1;
+}
+
+::placeholder {
+  color: transparent;
+}
+.register-input:focus {
+  border: 2px solid purple;
+}
+
+.register-input:not(:placeholder-shown) + .label-register {
+  top: -7px;
+  left: 3px;
+  z-index: 10;
+  font-size: 14px;
+  font-weight: 800;
+}
+.label-register {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 0 4px;
+  background-color: white;
+  color: #dadce0;
+  font-size: 16px;
+  transition: 0.5s;
+  z-index: 0;
+}
+.register-input:focus + .label-register {
+  top: -7px;
+  left: 3px;
+  z-index: 10;
+  font-size: 14px;
+  font-weight: 600;
+  color: purple;
+}
+.form-container button {
+  border: none;
+  width: 50%;
+  padding: 1em 0;
+  border-radius: 1em;
+  margin: auto;
+}
+
+.register-btn {
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.register-btn:hover {
+  background-color: #24294acb;
+}
+.inputContainer-pw1 {
+  margin-bottom: 5rem;
+}
+.inputContainer-pw2 {
+  margin-bottom: 4rem;
+}
+.pw-requirements-container {
+  list-style: none;
+  padding: 0.2em 1rem;
+  margin: 0;
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  text-align: start;
+  margin-top: 3.5rem;
+}
+
+.pw-requirements-items {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.pwRegCumple {
+  color: green;
+}
+
+.pwRegNoCumple {
+  color: purple;
+}
+.pw2-style {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  margin-left: 1rem;
+  padding: 0.2em 1rem;
+  margin-top: 3.5rem;
+}
+.userName-error {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 800;
+  position: absolute;
+  top: 15px;
+  right: -30px;
+}
+.icon-checked {
+  color: green;
+}

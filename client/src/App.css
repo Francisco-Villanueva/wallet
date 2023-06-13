@@ -1,0 +1,10 @@
+.App {
+  /* display: grid; */
+  /* place-items: center; */
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+input,
+button {
+  font-family: "Montserrat", sans-serif;
+}
