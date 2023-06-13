@@ -3,13 +3,13 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("User", {
-    userID: {
+    userId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
-    userNAme: {
+    userName: {
       type: DataTypes.STRING,
     },
     userEmail: {

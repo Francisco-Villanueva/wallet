@@ -36,20 +36,19 @@ const { Wallet, User, Spent, Type } = sequelize.models;
 // ...
 
 // Relaciones entre modelos
-User.hasOne(Wallet, { foreignKey: 'userId' }); // Un usuario tiene una billetera
-Wallet.belongsTo(User, { foreignKey: 'userId' }); // Una billetera pertenece a un usuario
+User.hasOne(Wallet, { foreignKey: "userId", as: "wallet" }); // Un usuario tiene una billetera
+Wallet.belongsTo(User, { foreignKey: "userId", as: "user" }); // Una billetera pertenece a un usuario
 
-User.hasMany(Spent, { foreignKey: 'userId' }); // Un usuario tiene muchos gastos
-Spent.belongsTo(User, { foreignKey: 'userId' }); // Un gasto pertenece a un usuario
+User.hasMany(Spent, { foreignKey: "userId", as: "spent" }); // Un usuario tiene muchos gastos
+Spent.belongsTo(User, { foreignKey: "userId", as: "user" }); // Un gasto pertenece a un usuario
 
-Spent.belongsTo(Wallet, { foreignKey: 'walletId' }); // Un gasto pertenece a una billetera
-Wallet.hasMany(Spent, { foreignKey: 'walletId' }); // Una billetera tiene muchos gastos
+Spent.belongsTo(Wallet, { foreignKey: "walletId", as: "wallet" }); // Un gasto pertenece a una billetera
+Wallet.hasMany(Spent, { foreignKey: "walletId", as: "spent" }); // Una billetera tiene muchos gastos
 
-Spent.belongsTo(Type, { foreignKey: 'typeId' }); // Un gasto pertenece a un tipo de gasto
-Type.hasMany(Spent, { foreignKey: 'typeId' }); // Un tipo de gasto tiene muchos gastos
+Spent.belongsTo(Type, { foreignKey: "typeId", as: "type" }); // Un gasto pertenece a un tipo de gasto
+Type.hasMany(Spent, { foreignKey: "typeId", as: "spent" }); // Un tipo de gasto tiene muchos gastos
 
 // ...
-
 
 module.exports = {
   ...sequelize.models,
