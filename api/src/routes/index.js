@@ -7,12 +7,14 @@ const {
   createUser,
   getUsersById,
   editUser,
+  getTypesByUserId
 } = require("./services");
 
 router.get("/test", test);
 router.get("/users", getUsers);
 router.get("/users/:id", getUsersById);
 router.put("/users/:id", editUser);
+router.get("/types/:idUser", getTypesByUserId);
 router.post("/users", createUser);
 
 const {

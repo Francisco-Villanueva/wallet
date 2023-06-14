@@ -9,7 +9,7 @@ export default function GastoCard({ name, mount, color, date, type }) {
     navigate(`/allSpents/${tipo}`);
   };
   return (
-    <div className="gastoCard-cont" onClick={() => handleNav(name)}>
+    <div className="gastoCard-cont" >
       <div>
         <b style={{ color: color }}>
           {" "}

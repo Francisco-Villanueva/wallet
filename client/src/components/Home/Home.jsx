@@ -11,16 +11,17 @@ import { useUsers } from "../../hooks/useUsers";
 Chart.register(ArcElement);
 
 export default function Home({ types, wallets }) {
-  const {allSpents} = useUsers()
-  
+  const {allSpents, currentUser, typesByUser} = useUsers()
+
+  console.log({currentUser})
   const params = useParams();
   const { id } = params;
   
   const [showModal, setShowModal] = useState(false);
 
-  console.log("wallets", wallets);
+  // console.log("wallets", wallets);
 
-  var total = allSpents.reduce((a, b) => a + b.amount, 0);
+  var total = currentUser.wallet.spent.reduce((a, b) => a + b.amount, 0);
   var saldo = wallets.length > 0 ? wallets[0].money - total : 0;
   let colorOrder = types.sort((a, b) => b.spent.reduce((a, b) => a + b.amount, 0) - a.spent.reduce((a, b) => a + b.amount, 0));
   const DATA = {
@@ -56,7 +57,7 @@ export default function Home({ types, wallets }) {
           <h1> Saldo</h1>
           <h1>$ {saldo.toLocaleString("de-DE")}</h1>
         </div>
-        {allSpents.length === 0 ? (
+        {currentUser.wallet.spent.length === 0 ? (
           <div style={{ display: "grid", placeItems: "center" }}>
             <h2>No hay gastos</h2>
           </div>
@@ -70,7 +71,7 @@ export default function Home({ types, wallets }) {
               <Doughnut data={DATA} options={false} redraw={false} />
             </div>
             <div className="labels-container">
-              <Gastos gastos={types} />
+              <Gastos typesByUser={typesByUser} />
             </div>
           </div>
         )}

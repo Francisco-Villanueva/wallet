@@ -3,8 +3,10 @@ import "./Login.css";
 import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useUsers } from "../../hooks/useUsers";
 export default function Login({listOfUsers}) {
   // console.log(listOfUsers)
+  const{getUserById, getTypesByUser}=useUsers()
     
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
@@ -21,12 +23,16 @@ export default function Login({listOfUsers}) {
     // aux retorna un arreglo de 1 posición con el usuario encontrado, o un arreglo vacío si no lo encuentra
     if (aux.length !== 0) {
       if (aux[0].userPw === userToCheck.userPw) {
+        getUserById(aux[0].userId)
+        getTypesByUser(aux[0].userId)
         setExit(exit === true ? false : true);
         setTimeout(() => navigate(`/home`), 1000);
+        // console.log('USER LOGED: ',aux[0].userId)
         Swal.fire({
           icon: "success",
           title: "User found!",
-          // text: "Check username submited",
+          // text: "Check username submited",}
+          timer: 1000,
         });
       } else {
         setValidPw(true);

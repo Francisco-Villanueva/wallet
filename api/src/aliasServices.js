@@ -64,6 +64,7 @@ const OBJETOS = objetos.map((objeto) => {
 const COMIDAS = comidas.map((comida) => {
   comida.toUpperCase();
 });
+
 module.exports = {
   ANIMALES,
   OBJETOS,

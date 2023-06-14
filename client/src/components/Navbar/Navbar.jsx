@@ -9,10 +9,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import User from "../User/User";
+import { useUsers } from "../../hooks/useUsers";
 
 // import User from "../User/User";
 export default function NavBar({ userName, userId }) {
   // console.log("ID QUE LLEGA AL NAVBAR", userId);
+  const{currentUser} = useUsers()
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -61,9 +63,9 @@ export default function NavBar({ userName, userId }) {
         />
         <span style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ fontSize: ".75rem", fontWeight: "bolder" }}>
-            {'user name'}
+            {currentUser.userName}
           </span>
-          <span style={{ fontSize: ".75rem", color: "#fff" }}>$12.450</span>
+          <span style={{ fontSize: ".75rem", color: "#fff" }}>$ {currentUser.wallet.balance}</span>
         </span>
 
         <div className="">

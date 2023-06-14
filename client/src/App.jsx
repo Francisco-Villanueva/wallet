@@ -7,7 +7,7 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 
 function App() {
-  const { users,allWallets,types, getUsers, getAllWallets ,getAllSpents, getTypes} = useUsers();
+  const { users, allWallets,types, getUsers, getAllWallets ,getAllSpents, getTypes} = useUsers();
 
   useEffect(() => {
     getUsers();
@@ -23,10 +23,9 @@ function App() {
     <>
       <div className="App">
         <Routes>
-
           <Route path="/" element={<Login listOfUsers={users}/>} />
           <Route path="/register" element={<Register users={users} />} />
-          <Route path="/home" element={<Home wallets={allWallets} types={types}/>} />
+          <Route path="/home" element={<Home wallets={allWallets} types={types} />} />
         </Routes>
       </div>
     </>

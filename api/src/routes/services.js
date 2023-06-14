@@ -164,6 +164,13 @@ const getUsersById = async (req, res) => {
           include: {
             model: Type,
             as: "type",
+            include: {
+              model: Spent,
+              as: "spent",
+              where: {
+                userId: id,
+              },
+            }
           },
         },
       },
@@ -179,6 +186,33 @@ const getUsersById = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+const getTypesByUserId = async (req, res) => {
+  try {
+    const {idUser} = req.params;
+
+    const types = await Type.findAll({
+      include: {
+        model: Spent,
+        as: "spent",
+        where: {
+          userId: idUser,
+        },
+      }
+    }
+    )
+    
+    if (!types) {
+      return res.status(400).send("Types not found!");
+    }
+
+    res.status(200).json(types);
+  } catch (error) {
+    console.log("ERROR:  ", error);
+    res.status(400).send(error);
+  }
+}
+
 
 const editUser = async (req, res) => {
   try {
@@ -213,4 +247,5 @@ module.exports = {
   getUsersById,
   createUser,
   editUser,
+  getTypesByUserId
 };
