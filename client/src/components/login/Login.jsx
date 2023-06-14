@@ -3,9 +3,10 @@ import "./Login.css";
 import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getUser, getUserById, setUserActual } from "../../redux/actions";
 export default function Login() {
+ 
+
+  
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
     userName: "",

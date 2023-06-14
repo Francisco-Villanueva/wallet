@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import walletimg from "../../img/wallet.png";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import { createUser, getUser } from "../../redux/actions";
 import { getPasswordStrength } from "./Helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,11 +11,9 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 export default function Register({ users }) {
-  const dispatch = useDispatch();
+  
   const [exit, setExit] = useState(false);
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
+  
   console.log("users", users);
   const [data, setData] = useState({
     userName: "",
