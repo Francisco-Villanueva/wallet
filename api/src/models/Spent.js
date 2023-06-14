@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     typeId: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
     },
     amount: {
       type: DataTypes.INTEGER,

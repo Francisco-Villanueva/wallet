@@ -1,4 +1,4 @@
-const { Spent, Type, Wallet } = require("../db");
+const { Spent, Type, Wallet, User } = require("../db");
 const { TYPES } = require("../data");
 const getSpents = async (req, res) => {
   try {
@@ -25,12 +25,20 @@ const createSpent = async (req, res) => {
       spentDescripcion,
       paymentProof,
       userId,
-      walletId,
     } = req.body;
 
     if (!spentName || !typeId || !amount || !spentPlace || !spentDescripcion) {
       return res.status(400).send("Data mistakes!");
+
     }
+
+    const getWalletId = await Wallet.findOne({
+      where: {
+        userId: userId,
+      },
+    });
+
+    // console.log("getWalletId: ", getWalletId.walletId);
     const newSpent = await Spent.create({
       spentName: spentName,
       typeId: typeId,
@@ -39,7 +47,7 @@ const createSpent = async (req, res) => {
       spentDescripcion: spentDescripcion,
       paymentProof: paymentProof,
       userId: userId,
-      walletId: walletId,
+      walletId: getWalletId.walletId,
     });
 
     res.status(200).send(newSpent);
