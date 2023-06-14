@@ -12,13 +12,13 @@ function App() {
     getUsers();
   }, []);
 
-  console.log(users);
+  // console.log(users);
   return (
     <>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register users={users} />} />
+          <Route path="/" element={<Login listOfUsers={users.users}/>} />
+          <Route path="/register" element={<Register users={users.users} />} />
         </Routes>
       </div>
     </>

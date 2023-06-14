@@ -3,10 +3,9 @@ import "./Login.css";
 import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-export default function Login() {
- 
-
-  
+export default function Login({listOfUsers}) {
+  console.log(listOfUsers)
+    
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
     userName: "",
@@ -17,14 +16,18 @@ export default function Login() {
 
   const checkUser = (usuarios, userToCheck) => {
     const aux = usuarios.filter(
-      (e) => e.name === userToCheck.userName || e.email === userToCheck.userName
+      (e) => e.userName === userToCheck.userName || e.email === userToCheck.userName
     );
-    console.log("aux", aux[0]);
-    if (aux.length != 0) {
-      if (aux[0].pw === userToCheck.userPw) {
+    // aux retorna un arreglo de 1 posición con el usuario encontrado, o un arreglo vacío si no lo encuentra
+    if (aux.length !== 0) {
+      if (aux[0].userPw === userToCheck.userPw) {
         setExit(exit === true ? false : true);
-        dispatch(setUserActual(aux[0]));
-        setTimeout(() => navigate(`/home`), 1000);
+        // setTimeout(() => navigate(`/home`), 1000);
+        Swal.fire({
+          icon: "success",
+          title: "User found!",
+          // text: "Check username submited",
+        });
       } else {
         setValidPw(true);
         // alert(`Pw INCO ${aux.userPw}  !=  ${userToCheck.userPW}`);
@@ -39,7 +42,7 @@ export default function Login() {
   };
 
   const handleExit = () => {
-    checkUser(allUsers, user);
+    checkUser(listOfUsers, user);
   };
 
   const handleInputChange = (e) => {
@@ -71,9 +74,9 @@ export default function Login() {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label for="username" className="label-register">
+            <label  className="label-register">
               User Name
-            </label>
+            </label> 
           </div>
 
           <div className="inputContainer">
@@ -88,7 +91,7 @@ export default function Login() {
               placeholder="Password"
               onChange={handleInputChange}
             />
-            <label for="username" className="label-register">
+            <label  className="label-register">
               Password
             </label>
           </div>

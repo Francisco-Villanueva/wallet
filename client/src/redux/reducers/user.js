@@ -10,6 +10,13 @@ export const reducer = (state, action) => {
         ...state,
         users: actionPayload,
       };
+
+      case actionTypes.CREATE_USER:{
+        return {
+          ...state,
+          users: [...state.users, actionPayload],
+        };
+      }
   }
   return state;
 };

@@ -10,11 +10,13 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
-export default function Register({ users }) {
-  
+import { useUsers } from "../../hooks/useUsers";
+export default function Register({users}) {
+
+  console.log('users: ', users);
+  const {createUser} = useUsers()
   const [exit, setExit] = useState(false);
   
-  console.log("users", users);
   const [data, setData] = useState({
     userName: "",
     userEmail: "",
@@ -38,13 +40,13 @@ export default function Register({ users }) {
   const handleSubmitUser = (e) => {
     e.preventDefault();
     const newUser = {
-      name: data.userName,
-      email: data.userEmail,
-      pw: data.userPw,
+      userName: data.userName,
+      userEmail: data.userEmail,
+      userPw: data.userPw,
     };
-    console.log("New User : ", newUser);
+    // console.log("New User : ", newUser);
     if (newUser.name !== "" && newUser.email !== "" && newUser.pw !== "") {
-      dispatch(createUser(newUser));
+      createUser(newUser);
     }
 
     setExit(exit === true ? false : true);
@@ -82,6 +84,7 @@ export default function Register({ users }) {
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
+    console.log(e.target.name, [e.target.value])
     if ([e.target.name] == "userPw") {
       if (verificarPassword(e.target.value)) {
         setClassPw(true);
@@ -99,7 +102,7 @@ export default function Register({ users }) {
     }
 
     if (e.target.name === "userName") {
-      if (users.find((user) => user.name === e.target.value)) {
+      if (users.find((user) => user.userName === e.target.value)) {
         setUserExist(false);
       } else {
         setUserExist(true);
@@ -130,7 +133,7 @@ export default function Register({ users }) {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label for="username" className="label-register">
+            <label  className="label-register">
               User Name
             </label>
 
@@ -155,7 +158,7 @@ export default function Register({ users }) {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label for="username" className="label-register">
+            <label className="label-register">
               Email
             </label>
           </div>
@@ -171,7 +174,7 @@ export default function Register({ users }) {
               }
               onChange={handleInputChange}
             />
-            <label for="username" className="label-register">
+            <label  className="label-register">
               Password
             </label>
             <ul className="pw-requirements-container">
@@ -253,7 +256,7 @@ export default function Register({ users }) {
               placeholder="Confirm Password"
               onChange={handleInputChange}
             />
-            <label for="username" className="label-register">
+            <label  className="label-register">
               Confirm Password
             </label>
             <span
