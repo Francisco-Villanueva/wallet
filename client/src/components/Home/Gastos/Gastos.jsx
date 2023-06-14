@@ -7,10 +7,7 @@ export default function Gastos({ typesByUser }) {
   // console.log("GASTOS: ", gastos)
 
   console.log({typesByUser})
-  const navigate = useNavigate();
-  const handleNav = (tipo) => {
-    navigate(`/allSpents/:${tipo}}`);
-  };
+ 
   return (
     <div className="gastos-container">
      {typesByUser.map(m=>(
@@ -18,7 +15,6 @@ export default function Gastos({ typesByUser }) {
          key={m.typeId}
          name={m.typeName}
          mount={m.spent.reduce((a, b) => a + b.amount, 0)}
-         // onClick={() => handleNav(m.typeId)}
        />
      ))
     }

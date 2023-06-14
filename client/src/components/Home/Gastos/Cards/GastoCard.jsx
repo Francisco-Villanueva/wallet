@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 export default function GastoCard({ name, mount, color, date, type }) {
   const navigate = useNavigate();
   const handleNav = (tipo) => {
-    navigate(`/allSpents/${tipo}`);
+    navigate(`/allSpents`);
   };
   return (
-    <div className="gastoCard-cont" >
+    <div className="gastoCard-cont" onClick={handleNav}>
       <div>
         <b style={{ color: color }}>
           {" "}

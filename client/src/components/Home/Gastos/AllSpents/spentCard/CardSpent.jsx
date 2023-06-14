@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import "./CardSpent.css";
 
-import ComprobantePago from "../Comprobante/ComprobantePago";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
-  faArrowLeftLongToLine,
   faTrash,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { deleteSpent, getAllSpents } from "../../../../../redux/actions";
 export default function CardSpent({ spent, buscador }) {
   // console.log("SPENT", spent);
   const handleDate = (date) => {
@@ -35,7 +31,6 @@ export default function CardSpent({ spent, buscador }) {
     const month = nombresMeses[fecha.getUTCMonth()];
     return `${day}, ${month}`;
   };
-  const dispatch = useDispatch();
   const handleDeleteSpent = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -49,10 +44,10 @@ export default function CardSpent({ spent, buscador }) {
       background: "#f5f5f5",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteSpent(id));
+        // dispatch(deleteSpent(id));
       }
     });
-    dispatch(getAllSpents());
+    // dispatch(getAllSpents());
     // dispatch(deleteSpent(id));
   };
 
@@ -96,7 +91,7 @@ export default function CardSpent({ spent, buscador }) {
         )}
       </div>
 
-      {comprobantePago ? <ComprobantePago src={comprobantePago} /> : null}
+      
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getAllSpents, deleteSpent } from "../../../../../src/redux/actions";
 import Swal from "sweetalert2";
 
 import "./Allsents.css";
@@ -20,7 +18,8 @@ import {
 import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
-export default function Allspents({ spents }) {
+export default function Allspents({ typesByUser }) {
+  console.log('EN ALLSPENTS ', typesByUser)
   const options = {};
 
   const labels = [
@@ -54,20 +53,17 @@ export default function Allspents({ spents }) {
       },
     ],
   };
-  const params = useParams();
-  const { type } = params;
-  const navigate = useNavigate();
 
-  const spents_filter = spents.filter((s) => s.type === type);
+  const navigate = useNavigate();
   const handleBackPage = () => {
     navigate("/home");
   };
-  const total = spents_filter.reduce((acc, s) => acc + s.amount, 0);
+  const total = typesByUser.spent.reduce((acc, s) => acc + s.amount, 0);
   // console.log(type, spents_filter);
 
   //FUNCIONALIDADES PARA EL DELETEO MÚLTIPLE
   const [selectedCards, setSelectedCards] = useState([]);
-  const dispatch = useDispatch();
+  
   const handleCheckboxChange = (e, id) => {
     if (e.target.checked) {
       setSelectedCards([...selectedCards, id]);
@@ -77,8 +73,8 @@ export default function Allspents({ spents }) {
   };
 
   const handleDeleteSpent = (id) => {
-    dispatch(deleteSpent(id));
-    dispatch(getAllSpents());
+    // dispatch(deleteSpent(id));
+    // dispatch(getAllSpents());
     // dispatch(deleteSpent(id));
   };
   const handleDeleteSelected = () => {
