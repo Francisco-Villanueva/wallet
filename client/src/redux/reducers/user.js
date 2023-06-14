@@ -1,5 +1,8 @@
 export const intialState = {
   users: [],
+  spents: [],
+  types:[],
+  wallets:[]
 };
 import { actionTypes } from "../context/user";
 export const reducer = (state, action) => {
@@ -15,6 +18,26 @@ export const reducer = (state, action) => {
         return {
           ...state,
           users: [...state.users, actionPayload],
+        };
+      }
+
+      case actionTypes.GET_SPENTS:
+        return {
+          ...state,
+          spents: actionPayload,  
+        };
+
+      case actionTypes.GET_TYPES:{
+        return {
+          ...state,
+          types: actionPayload,
+        };
+      }
+
+      case actionTypes.GET_WALLETS:{
+        return {
+          ...state,
+          wallets: actionPayload,
         };
       }
   }

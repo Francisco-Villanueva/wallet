@@ -4,7 +4,7 @@ import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 export default function Login({listOfUsers}) {
-  console.log(listOfUsers)
+  // console.log(listOfUsers)
     
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
@@ -22,7 +22,7 @@ export default function Login({listOfUsers}) {
     if (aux.length !== 0) {
       if (aux[0].userPw === userToCheck.userPw) {
         setExit(exit === true ? false : true);
-        // setTimeout(() => navigate(`/home`), 1000);
+        setTimeout(() => navigate(`/home`), 1000);
         Swal.fire({
           icon: "success",
           title: "User found!",
