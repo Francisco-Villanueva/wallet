@@ -6,6 +6,7 @@ import Login from "./components/login/Login";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Allspents from "./components/Home/Gastos/AllSpents/Allspents";
+import Wallet from "./components/Wallet/Wallet";
 
 function App() {
   const {
@@ -42,9 +43,10 @@ function App() {
             }
           />
           <Route
-            path="/allSpents"
+            path="/allSpents/:idType"
             element={<Allspents typesByUser={typesByUser} />}
           />
+          <Route path="/wallet" element={<Wallet />} />
         </Routes>
       </div>
     </>

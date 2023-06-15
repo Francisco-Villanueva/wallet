@@ -16,10 +16,17 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useUsers } from "../../../../hooks/useUsers";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 export default function Allspents({ typesByUser }) {
-  console.log('EN ALLSPENTS ', typesByUser)
+  const { deleteSpent, getAllSpents } = useUsers();
+
+  const params = useParams();
+  const { idType } = params;
+
+  const filteredTypes = typesByUser.filter((m) => m.typeId === idType);
+  // console.log("EN ALLSPENTS ", filteredTypes, "IDTYPE: ", idType);
   const options = {};
 
   const labels = [
@@ -58,12 +65,12 @@ export default function Allspents({ typesByUser }) {
   const handleBackPage = () => {
     navigate("/home");
   };
-  const total = typesByUser.spent.reduce((acc, s) => acc + s.amount, 0);
+  const total = filteredTypes[0].spent.reduce((acc, s) => acc + s.amount, 0);
   // console.log(type, spents_filter);
 
   //FUNCIONALIDADES PARA EL DELETEO MÚLTIPLE
   const [selectedCards, setSelectedCards] = useState([]);
-  
+
   const handleCheckboxChange = (e, id) => {
     if (e.target.checked) {
       setSelectedCards([...selectedCards, id]);
@@ -73,9 +80,8 @@ export default function Allspents({ typesByUser }) {
   };
 
   const handleDeleteSpent = (id) => {
-    // dispatch(deleteSpent(id));
-    // dispatch(getAllSpents());
-    // dispatch(deleteSpent(id));
+    deleteSpent(id);
+    getAllSpents();
   };
   const handleDeleteSelected = () => {
     selectedCards.forEach((id) => handleDeleteSpent(id));
@@ -94,7 +100,7 @@ export default function Allspents({ typesByUser }) {
         <section className=" allSpents__body-section allSpents-header">
           <div>
             <h1 style={{ margin: 0 }} className="allSpents-contianer__title">
-              {type}
+              {filteredTypes[0].typeName}
             </h1>
             <span>Abril</span>
           </div>
@@ -125,7 +131,7 @@ export default function Allspents({ typesByUser }) {
                 color: "#6c757d",
               }}
             >
-              {spents_filter.length} gastos del mes
+              {filteredTypes[0].spent.length} gastos del mes
             </span>
             {selectedCards.length > 0 ? (
               <button
@@ -140,15 +146,16 @@ export default function Allspents({ typesByUser }) {
             )}
           </div>
           <div className="allSpents-Cards-Container">
-            {spents_filter.map((s) => (
+            {filteredTypes[0].spent.map((s) => (
               <div
-                key={s.id}
+                key={s.spentID}
                 style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
               >
                 <input
+                  key={s.spentID}
                   className="allSpents-Cards-Container__checkbox"
                   type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, s.id)}
+                  onChange={(e) => handleCheckboxChange(e, s.spentId)}
                 />
 
                 <CardSpent spent={s} />

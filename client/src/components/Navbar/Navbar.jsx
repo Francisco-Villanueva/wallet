@@ -14,7 +14,7 @@ import { useUsers } from "../../hooks/useUsers";
 // import User from "../User/User";
 export default function NavBar({ userName, userId }) {
   // console.log("ID QUE LLEGA AL NAVBAR", userId);
-  const{currentUser} = useUsers()
+  const { currentUser } = useUsers();
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -51,7 +51,6 @@ export default function NavBar({ userName, userId }) {
           Wallet
         </p>
         <p className="navbar-links__p">Finanzas</p>
-        <p className="navbar-links__p">Contact</p>
       </div>
 
       <div className="navbar-user">
@@ -65,13 +64,15 @@ export default function NavBar({ userName, userId }) {
           <span style={{ fontSize: ".75rem", fontWeight: "bolder" }}>
             {currentUser.userName}
           </span>
-          <span style={{ fontSize: ".75rem", color: "#fff" }}>$ {currentUser.wallet.balance}</span>
+          <span style={{ fontSize: ".75rem", color: "#fff" }}>
+            $ {currentUser.wallet.balance}
+          </span>
         </span>
 
         <div className="">
           <User showModal={showModal} handleCloseModal={handleCloseModal} />
         </div>
-        
+
         <div className="dropdown">
           <div className="dropdown-item" onClick={handleShowModal}>
             <FontAwesomeIcon icon={faUser} /> Profile

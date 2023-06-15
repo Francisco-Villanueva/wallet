@@ -22,7 +22,7 @@ export default function Home({ types, wallets }) {
   // console.log("wallets", wallets);
 
   var total = currentUser.wallet.spent.reduce((a, b) => a + b.amount, 0);
-  var saldo = wallets.length > 0 ? wallets[0].money - total : 0;
+  var saldo = currentUser.wallet.balance - total;
   let colorOrder = types.sort(
     (a, b) =>
       b.spent.reduce((a, b) => a + b.amount, 0) -

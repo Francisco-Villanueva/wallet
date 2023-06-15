@@ -8,8 +8,10 @@ import {
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { useUsers } from "../../../../../hooks/useUsers";
 export default function CardSpent({ spent, buscador }) {
   // console.log("SPENT", spent);
+  const { deleteSpent } = useUsers();
   const handleDate = (date) => {
     const fecha = new Date(date);
 
@@ -44,7 +46,7 @@ export default function CardSpent({ spent, buscador }) {
       background: "#f5f5f5",
     }).then((result) => {
       if (result.isConfirmed) {
-        // dispatch(deleteSpent(id));
+        deleteSpent(id);
       }
     });
     // dispatch(getAllSpents());
@@ -60,11 +62,14 @@ export default function CardSpent({ spent, buscador }) {
     <div className="cardSpent-contianer">
       <div className="receptor">
         <FontAwesomeIcon icon={faChartPie} />
-        <div lassName="cardSpent-contianer__title">
-          <h3 className="destinatario">{spent.name}</h3>
+        <div className="cardSpent-contianer__title">
+          <h3 className="destinatario">{spent.spentName}</h3>
           <span>
-            a {spent.place} -{" "}
-            <span style={{ fontStyle: "italic" }}> {spent.descripcion} </span>
+            a {spent.spentPlace} -{" "}
+            <span style={{ fontStyle: "italic" }}>
+              {" "}
+              {spent.spentDescripcion}{" "}
+            </span>
           </span>
         </div>
       </div>
@@ -78,7 +83,7 @@ export default function CardSpent({ spent, buscador }) {
         <FontAwesomeIcon
           icon={faTrash}
           className="SpentTrash"
-          onClick={() => handleDeleteSpent(spent.id)}
+          onClick={() => handleDeleteSpent(spent.spentId)}
         />
         {spent.paymentProof ? (
           <FontAwesomeIcon
@@ -90,8 +95,6 @@ export default function CardSpent({ spent, buscador }) {
           ""
         )}
       </div>
-
-      
     </div>
   );
 }

@@ -7,7 +7,7 @@ const {
   createUser,
   getUsersById,
   editUser,
-  getTypesByUserId
+  getTypesByUserId,
 } = require("./services");
 
 router.get("/test", test);
@@ -28,8 +28,8 @@ const {
 
 router.post("/spent", createSpent);
 router.get("/spent", getSpents);
-router.get("/spent/:spentId", getSpentsById);
-router.delete("/spent/:spentId", deleteSpent);
+router.get("/spent/:id", getSpentsById);
+router.delete("/spent/:id", deleteSpent);
 router.get("/types", getAllTpyes);
 router.post("/types", createTypes);
 

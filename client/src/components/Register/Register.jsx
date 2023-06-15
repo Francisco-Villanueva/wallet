@@ -11,12 +11,11 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUsers } from "../../hooks/useUsers";
-export default function Register({users}) {
-
-  console.log('users: ', users);
-  const {createUser} = useUsers()
+export default function Register({ users }) {
+  console.log("users: ", users);
+  const { createUser } = useUsers();
   const [exit, setExit] = useState(false);
-  
+
   const [data, setData] = useState({
     userName: "",
     userEmail: "",
@@ -48,7 +47,6 @@ export default function Register({users}) {
     if (newUser.name !== "" && newUser.email !== "" && newUser.pw !== "") {
       createUser(newUser);
     }
-
     setExit(exit === true ? false : true);
     setTimeout(() => navigate("/"), 500);
   };
@@ -84,7 +82,7 @@ export default function Register({users}) {
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
-    console.log(e.target.name, [e.target.value])
+    console.log(e.target.name, [e.target.value]);
     if ([e.target.name] == "userPw") {
       if (verificarPassword(e.target.value)) {
         setClassPw(true);
@@ -133,9 +131,7 @@ export default function Register({users}) {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label  className="label-register">
-              User Name
-            </label>
+            <label className="label-register">User Name</label>
 
             {data.userName !== "" ? (
               userExist ? (
@@ -158,9 +154,7 @@ export default function Register({users}) {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label className="label-register">
-              Email
-            </label>
+            <label className="label-register">Email</label>
           </div>
           <div className="inputContainer  inputContainer-pw1">
             <input
@@ -174,9 +168,7 @@ export default function Register({users}) {
               }
               onChange={handleInputChange}
             />
-            <label  className="label-register">
-              Password
-            </label>
+            <label className="label-register">Password</label>
             <ul className="pw-requirements-container">
               <span
                 style={{
@@ -256,9 +248,7 @@ export default function Register({users}) {
               placeholder="Confirm Password"
               onChange={handleInputChange}
             />
-            <label  className="label-register">
-              Confirm Password
-            </label>
+            <label className="label-register">Confirm Password</label>
             <span
               className={`pw2-style pw-requirements-items ${
                 pwCoinciden ? "pwRegCumple" : "pwRegNoCumple"

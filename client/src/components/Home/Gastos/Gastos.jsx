@@ -13,6 +13,7 @@ export default function Gastos({ typesByUser }) {
       {typesSorted.map((m) => (
         <GastoCard
           key={m.typeId}
+          idType={m.typeId}
           name={m.typeName}
           mount={m.spent.reduce((a, b) => a + b.amount, 0)}
         />

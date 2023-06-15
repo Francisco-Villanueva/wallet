@@ -19,7 +19,8 @@ export default function Login({ listOfUsers }) {
   const checkUser = (usuarios, userToCheck) => {
     const aux = usuarios.filter(
       (e) =>
-        e.userName === userToCheck.userName || e.email === userToCheck.userName
+        e.userName === userToCheck.userName ||
+        e.userEmail === userToCheck.userName
     );
     // aux retorna un arreglo de 1 posición con el usuario encontrado, o un arreglo vacío si no lo encuentra
     if (aux.length !== 0) {

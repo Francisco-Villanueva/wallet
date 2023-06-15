@@ -29,7 +29,6 @@ const createSpent = async (req, res) => {
 
     if (!spentName || !typeId || !amount || !spentPlace || !spentDescripcion) {
       return res.status(400).send("Data mistakes!");
-
     }
 
     const getWalletId = await Wallet.findOne({

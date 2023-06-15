@@ -2,14 +2,14 @@ import React from "react";
 import "./GastoCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-export default function GastoCard({ name, mount, color, date, type }) {
+import { useNavigate, useParams } from "react-router-dom";
+export default function GastoCard({ name, mount, color, date, idType }) {
   const navigate = useNavigate();
-  const handleNav = (tipo) => {
-    navigate(`/allSpents`);
+  const handleNav = (idTipo) => {
+    navigate(`/allSpents/${idTipo}`);
   };
   return (
-    <div className="gastoCard-cont" onClick={handleNav}>
+    <div className="gastoCard-cont" onClick={() => handleNav(idType)}>
       <div>
         <b style={{ color: color }}>
           {" "}

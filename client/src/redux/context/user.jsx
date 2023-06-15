@@ -142,6 +142,26 @@ function useUsersReducer() {
       console.log({ error });
     }
   };
+
+  const deleteSpent = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:4000/spent/${id}`);
+
+      Swal.fire({
+        icon: "success",
+        title: "Spent deleted!",
+        // text: "Check username submited",
+        timer: 500,
+      });
+
+      dispatch({
+        type: actionTypes.DELETE_SPENTS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
   return {
     state,
     getUsers,
@@ -152,6 +172,7 @@ function useUsersReducer() {
     getUserById,
     getTypesByUser,
     createSpent,
+    deleteSpent,
   };
 }
 export function UsersProvider({ children }) {
@@ -165,6 +186,7 @@ export function UsersProvider({ children }) {
     getUserById,
     getTypesByUser,
     createSpent,
+    deleteSpent,
   } = useUsersReducer();
 
   return (
@@ -184,6 +206,7 @@ export function UsersProvider({ children }) {
         getUserById,
         getTypesByUser,
         createSpent,
+        deleteSpent,
       }}
     >
       {children}

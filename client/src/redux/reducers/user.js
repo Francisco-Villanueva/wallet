@@ -61,6 +61,13 @@ export const reducer = (state = intialState, action) => {
         spents: [...state.spents, actionPayload],
       };
     }
+
+    case actionTypes.DELETE_SPENTS: {
+      return {
+        ...state,
+        spents: state.spents.filter((spent) => spent.spentId !== actionPayload),
+      };
+    }
   }
   return state;
 };
