@@ -7,15 +7,19 @@ import { Chart, ArcElement } from "chart.js";
 import NavBar from "../Navbar/NavBar";
 import { useLocation, useParams } from "react-router-dom";
 import { useUsers } from "../../hooks/useUsers";
+import Login from "../login/Login";
 
 Chart.register(ArcElement);
 
 export default function Home({ types, wallets, currentUser}) {
-  const {  typesByUser, allSpents } = useUsers();
+  const {  typesByUser, allSpents, getUserById , getTypesByUser, storeUser, storeUserId} = useUsers();
+  
   // console.log({ currentUser });
+  // console.log({ storeUser });
   const params = useParams();
   const { id } = params;
-
+ 
+  
   const [showModal, setShowModal] = useState(false);
  
 

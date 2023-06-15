@@ -2,6 +2,7 @@ import React from "react";
 import "./Gastos.css";
 import GastoCard from "./Cards/GastoCard";
 export default function Gastos({ typesByUser }) {
+  // console.log("typesByUser", typesByUser);
   const typesSorted = typesByUser.sort(
     (a, b) =>
       b.spent.reduce((a, b) => a + b.amount, 0) -

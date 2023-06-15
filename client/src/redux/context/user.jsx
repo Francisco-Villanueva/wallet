@@ -21,6 +21,12 @@ export const UserContext = createContext();
 function useUsersReducer() {
   const [state, dispatch] = useReducer(reducer, intialState);
 
+  const updateLocalStorage = (user, id) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("userId", JSON.stringify(id));
+
+    
+  };
   // console.log("STATE: ", state);
   const getUsers = async () => {
     try {
@@ -39,7 +45,9 @@ function useUsersReducer() {
   const getUserById = async (id) => {
     try {
       const res = await axios.get(`http://localhost:4000/users/${id}`);
+      updateLocalStorage(res.data, res.data.userId);
 
+      
       dispatch({
         type: actionTypes.GET_USER_BY_ID,
         payload: res.data,
@@ -162,6 +170,9 @@ function useUsersReducer() {
       console.log({ error });
     }
   };
+
+  const storeUser = JSON.parse(localStorage.getItem("user"));
+  const storeUserId = JSON.parse(localStorage.getItem("userId"));
   return {
     state,
     getUsers,
@@ -173,6 +184,8 @@ function useUsersReducer() {
     getTypesByUser,
     createSpent,
     deleteSpent,
+    storeUser,
+    storeUserId
   };
 }
 export function UsersProvider({ children }) {
@@ -187,6 +200,8 @@ export function UsersProvider({ children }) {
     getTypesByUser,
     createSpent,
     deleteSpent,
+    storeUser,
+    storeUserId
   } = useUsersReducer();
 
   return (
@@ -207,6 +222,8 @@ export function UsersProvider({ children }) {
         getTypesByUser,
         createSpent,
         deleteSpent,
+        storeUser,
+        storeUserId
       }}
     >
       {children}

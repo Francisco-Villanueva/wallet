@@ -9,9 +9,11 @@ import Allspents from "./components/Home/Gastos/AllSpents/Allspents";
 import Wallet from "./components/Wallet/Wallet";
 
 function App() {
+
   const {
     users,
     typesByUser,
+    storeUser,
     allWallets,
     allSpents,
     types,
@@ -19,27 +21,26 @@ function App() {
     getAllWallets,
     getAllSpents,
     getTypes,
+    getUserById,
+    getTypesByUser,
+    storeUserId
   } = useUsers();
+  const [currentUser, setCurrentUser] = useState(storeUser);
 
   useEffect(() => {
     getUsers();
     getAllWallets();
     getAllSpents();
     getTypes();
+    getTypesByUser(currentUser?.userId)
   }, []);
 
-  const storedUser = localStorage.getItem("currentUser");
-  console.log({storedUser});
-  const [currentUser, setUserLoged] = useState(storedUser !== 'undefined'? JSON.parse(storedUser): storedUser);
   useEffect(() => {
-    // Obtener currentUser almacenado en el Local Storage
-    // console.log('LOCAL STORAGE: ',JSON.parse(storedUser));
-    if (storedUser !== 'undefined') {
-      setUserLoged(JSON.parse(storedUser));
-    }
-  }, [users]);
+    setCurrentUser(storeUser);
+  }, [currentUser, allSpents, typesByUser]);
 
-  console.log({currentUser});
+
+  // const [currentUser, setUserLoged] = useState(JSON.parse(storeser));
  
 
   return (
