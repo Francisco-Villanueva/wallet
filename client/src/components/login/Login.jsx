@@ -27,7 +27,7 @@ export default function Login({ listOfUsers }) {
       if (aux[0].userPw === userToCheck.userPw) {
         getUserById(aux[0].userId);
         getTypesByUser(aux[0].userId);
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        localStorage.setItem("currentUser", JSON.stringify(aux[0]));
         setExit(exit === true ? false : true);
         setTimeout(() => navigate(`/home`), 1000);
       } else {

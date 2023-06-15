@@ -27,15 +27,20 @@ function App() {
     getAllSpents();
     getTypes();
   }, []);
-  const [userLoged, setUserLoged] = useState(null);
+
+  const storedUser = localStorage.getItem("currentUser");
+  console.log({storedUser});
+  const [currentUser, setUserLoged] = useState(storedUser !== 'undefined'? JSON.parse(storedUser): storedUser);
   useEffect(() => {
     // Obtener currentUser almacenado en el Local Storage
-    const storedUser = localStorage.getItem("currentUser");
-    console.log(storedUser);
-    if (storedUser) {
+    // console.log('LOCAL STORAGE: ',JSON.parse(storedUser));
+    if (storedUser !== 'undefined') {
       setUserLoged(JSON.parse(storedUser));
     }
-  }, []);
+  }, [users]);
+
+  console.log({currentUser});
+ 
 
   return (
     <>
@@ -46,14 +51,14 @@ function App() {
           <Route
             path="/home"
             element={
-              <Home wallets={allWallets} types={types} allSpents={allSpents} />
+              <Home wallets={allWallets} types={types} allSpents={allSpents} currentUser={currentUser}/>
             }
           />
           <Route
             path="/allSpents/:idType"
             element={<Allspents typesByUser={typesByUser} />}
           />
-          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/wallet" element={<Wallet currentUser={currentUser}/>} />
         </Routes>
       </div>
     </>

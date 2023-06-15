@@ -3,8 +3,8 @@ import "./NewSpent.css";
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUsers } from "../../../../hooks/useUsers";
-export default function NewSpent({ handleCloseModal, showModal }) {
-  const { types, createSpent, currentUser } = useUsers();
+export default function NewSpent({ handleCloseModal, showModal, currentUser}) {
+  const { types, createSpent } = useUsers();
   const [newGasto, setNewGsato] = useState({
     spentName: "",
     typeId: "",

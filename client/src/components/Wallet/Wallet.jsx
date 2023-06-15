@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faWallet } from "@fortawesome/free-solid-svg-icons";
 import CardSpent from "../Home/Gastos/AllSpents/spentCard/CardSpent";
 import { useUsers } from "../../hooks/useUsers";
-export default function Wallet() {
-  const { currentUser, deleteSpent, getAllSpents } = useUsers();
-  console.log({ currentUser });
+export default function Wallet({currentUser}) {
+  const { deleteSpent, getAllSpents } = useUsers();
+  // console.log({ currentUser });
   const [selectedCards, setSelectedCards] = useState([]);
 
   const handleCheckboxChange = (e, id) => {

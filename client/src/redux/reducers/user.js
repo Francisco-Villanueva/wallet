@@ -4,7 +4,7 @@ export const intialState = {
   types: [],
   wallets: [],
   typesByUser: [],
-  // currentUser: null,
+  currentUser: null,
 };
 import { actionTypes } from "../context/user";
 export const reducer = (state = intialState, action) => {
@@ -42,12 +42,12 @@ export const reducer = (state = intialState, action) => {
         wallets: actionPayload,
       };
     }
-    // case actionTypes.GET_USER_BY_ID: {
-    //   return {
-    //     ...state,
-    //     currentUser: actionPayload,
-    //   };
-    // }
+    case actionTypes.GET_USER_BY_ID: {
+      return {
+        ...state,
+        currentUser: actionPayload,
+      };
+    }
 
     case actionTypes.GET_TYPES_BY_USER: {
       return {

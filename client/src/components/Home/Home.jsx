@@ -10,18 +10,17 @@ import { useUsers } from "../../hooks/useUsers";
 
 Chart.register(ArcElement);
 
-export default function Home({ types, wallets }) {
-  const { currentUser, typesByUser, allSpents } = useUsers();
+export default function Home({ types, wallets, currentUser}) {
+  const {  typesByUser, allSpents } = useUsers();
   // console.log({ currentUser });
   const params = useParams();
   const { id } = params;
 
   const [showModal, setShowModal] = useState(false);
+ 
 
-  // console.log("wallets", wallets);
-
-  var total = currentUser.wallet.spent.reduce((a, b) => a + b.amount, 0);
-  var saldo = currentUser.wallet.balance - total;
+  var total = currentUser?.wallet.spent.reduce((a, b) => a + b.amount, 0);
+  var saldo = currentUser?.wallet.balance - total;
   let colorOrder = types.sort(
     (a, b) =>
       b.spent.reduce((a, b) => a + b.amount, 0) -
@@ -53,14 +52,14 @@ export default function Home({ types, wallets }) {
   return (
     <div className="home-main">
       <div className="navBar-container">
-        <NavBar userName={"pepe"} userId={id} />
+        <NavBar userName={"pepe"} userId={id} currentUser={currentUser}/>
       </div>
       <div className="home-body">
         <div className="mounth-total-container">
           <h1> Saldo</h1>
-          <h1>$ {saldo.toLocaleString("de-DE")}</h1>
+          <h1>$ {saldo?.toLocaleString("de-DE")}</h1>
         </div>
-        {currentUser.wallet.spent.length === 0 ? (
+        {currentUser?.wallet.spent.length === 0 ? (
           <div style={{ display: "grid", placeItems: "center" }}>
             <h2>No hay gastos</h2>
           </div>
@@ -69,7 +68,7 @@ export default function Home({ types, wallets }) {
             <div className="grafico-cont">
               {/* <Pie data={DATA} options={true} redraw={false} /> */}
               <div className="grafico-cont__totalGastos">
-                <h2>$ {total.toLocaleString("de-DE")}</h2>
+                <h2>$ {total?.toLocaleString("de-DE")}</h2>
               </div>
               <Doughnut data={DATA} options={false} redraw={false} />
             </div>
@@ -85,7 +84,7 @@ export default function Home({ types, wallets }) {
           +
         </button>
         <div className="NewSpentComponent-Container">
-          <NewSpent showModal={showModal} handleCloseModal={handleCloseModal} />
+          <NewSpent showModal={showModal} handleCloseModal={handleCloseModal} currentUser={currentUser} />
         </div>
       </div>
     </div>
