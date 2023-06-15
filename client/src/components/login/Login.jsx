@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useUsers } from "../../hooks/useUsers";
 export default function Login({ listOfUsers }) {
   // console.log(listOfUsers)
-  const { getUserById, getTypesByUser } = useUsers();
+  const { getUserById, getTypesByUser, currentUser } = useUsers();
 
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
@@ -27,6 +27,7 @@ export default function Login({ listOfUsers }) {
       if (aux[0].userPw === userToCheck.userPw) {
         getUserById(aux[0].userId);
         getTypesByUser(aux[0].userId);
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
         setExit(exit === true ? false : true);
         setTimeout(() => navigate(`/home`), 1000);
       } else {

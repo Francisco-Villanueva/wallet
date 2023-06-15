@@ -27,8 +27,15 @@ function App() {
     getAllSpents();
     getTypes();
   }, []);
-
-  // console.log({allWallets})
+  const [userLoged, setUserLoged] = useState(null);
+  useEffect(() => {
+    // Obtener currentUser almacenado en el Local Storage
+    const storedUser = localStorage.getItem("currentUser");
+    console.log(storedUser);
+    if (storedUser) {
+      setUserLoged(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <>

@@ -12,7 +12,6 @@ Chart.register(ArcElement);
 
 export default function Home({ types, wallets }) {
   const { currentUser, typesByUser, allSpents } = useUsers();
-
   // console.log({ currentUser });
   const params = useParams();
   const { id } = params;
