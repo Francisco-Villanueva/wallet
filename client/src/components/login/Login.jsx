@@ -4,10 +4,10 @@ import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useUsers } from "../../hooks/useUsers";
-export default function Login({listOfUsers}) {
+export default function Login({ listOfUsers }) {
   // console.log(listOfUsers)
-  const{getUserById, getTypesByUser}=useUsers()
-    
+  const { getUserById, getTypesByUser } = useUsers();
+
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
     userName: "",
@@ -18,22 +18,16 @@ export default function Login({listOfUsers}) {
 
   const checkUser = (usuarios, userToCheck) => {
     const aux = usuarios.filter(
-      (e) => e.userName === userToCheck.userName || e.email === userToCheck.userName
+      (e) =>
+        e.userName === userToCheck.userName || e.email === userToCheck.userName
     );
     // aux retorna un arreglo de 1 posición con el usuario encontrado, o un arreglo vacío si no lo encuentra
     if (aux.length !== 0) {
       if (aux[0].userPw === userToCheck.userPw) {
-        getUserById(aux[0].userId)
-        getTypesByUser(aux[0].userId)
+        getUserById(aux[0].userId);
+        getTypesByUser(aux[0].userId);
         setExit(exit === true ? false : true);
         setTimeout(() => navigate(`/home`), 1000);
-        // console.log('USER LOGED: ',aux[0].userId)
-        Swal.fire({
-          icon: "success",
-          title: "User found!",
-          // text: "Check username submited",}
-          timer: 1000,
-        });
       } else {
         setValidPw(true);
         // alert(`Pw INCO ${aux.userPw}  !=  ${userToCheck.userPW}`);
@@ -80,9 +74,7 @@ export default function Login({listOfUsers}) {
               onChange={handleInputChange}
               className="register-input"
             />
-            <label  className="label-register">
-              User Name
-            </label> 
+            <label className="label-register">User Name</label>
           </div>
 
           <div className="inputContainer">
@@ -97,9 +89,7 @@ export default function Login({listOfUsers}) {
               placeholder="Password"
               onChange={handleInputChange}
             />
-            <label  className="label-register">
-              Password
-            </label>
+            <label className="label-register">Password</label>
           </div>
           {/* <span className={validPw ? "pwIncorrect" : "pwCorrect"}>
             Incorrect password

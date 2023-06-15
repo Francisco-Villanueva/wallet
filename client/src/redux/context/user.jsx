@@ -5,12 +5,13 @@ import axios from "axios";
 export const actionTypes = {
   GET_USERS: "GET_USERS",
   GET_USER_BY_ID: "GET_USER_BY_ID",
-  CREATE_USER: 'CREATE_USER',
   GET_SPENTS: "GET_SPENTS",
   GET_TYPES: "GET_TYPES",
-  GET_TYPES_BY_USER:"GET_TYPES_BY_USER",
+  GET_TYPES_BY_USER: "GET_TYPES_BY_USER",
   GET_WALLETS: "GET_WALLETS",
   GET_SPENTS_BY_TYPES: "GET_SPENTS_BY_TYPES",
+  CREATE_USER: "CREATE_USER",
+  CREATE_SPENT: "CREATE_SPENT",
   DELETE_SPENTS: "DELETE_SPENTS",
   GET_USER_DATA: "GET_USER_DATA",
 };
@@ -44,15 +45,14 @@ function useUsersReducer() {
         payload: res.data,
       });
     } catch (error) {
-      console.log({error})
+      console.log({ error });
     }
-  }
+  };
   const createUser = async (userData) => {
     try {
       const newUser = await axios.post("http://localhost:4000/users", userData);
 
-      console.log('USER CREATED: ', newUser.data);
-
+      console.log("USER CREATED: ", newUser.data);
 
       Swal.fire({
         icon: "success",
@@ -64,12 +64,10 @@ function useUsersReducer() {
         type: actionTypes.CREATE_USER,
         payload: newUser.data,
       });
-
     } catch (error) {
-      console.log({ error })
+      console.log({ error });
     }
-
-  }
+  };
 
   const getAllSpents = async () => {
     try {
@@ -82,7 +80,7 @@ function useUsersReducer() {
     } catch (error) {
       console.log({ error });
     }
-  }
+  };
 
   const getAllWallets = async () => {
     try {
@@ -92,12 +90,11 @@ function useUsersReducer() {
       dispatch({
         type: actionTypes.GET_WALLETS,
         payload: res.data,
-      })
-
+      });
     } catch (error) {
-     console.log({error}) 
+      console.log({ error });
     }
-  }
+  };
 
   const getTypes = async () => {
     try {
@@ -105,11 +102,11 @@ function useUsersReducer() {
       dispatch({
         type: actionTypes.GET_TYPES,
         payload: res.data,
-      })
+      });
     } catch (error) {
       console.log({ error });
     }
-  }
+  };
 
   const getTypesByUser = async (id) => {
     try {
@@ -117,21 +114,79 @@ function useUsersReducer() {
       dispatch({
         type: actionTypes.GET_TYPES_BY_USER,
         payload: res.data,
-      })
+      });
     } catch (error) {
       console.log({ error });
     }
-  }
+  };
 
-  return { state, getUsers, createUser, getAllSpents, getTypes,  getAllWallets, getUserById, getTypesByUser};
+  const createSpent = async (spentData) => {
+    try {
+      const newSpent = await axios.post(
+        "http://localhost:4000/spent",
+        spentData
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Spent created!",
+        // text: "Check username submited",
+        timer: 500,
+      });
+
+      dispatch({
+        type: actionTypes.CREATE_SPENT,
+        payload: newSpent.data,
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  return {
+    state,
+    getUsers,
+    createUser,
+    getAllSpents,
+    getTypes,
+    getAllWallets,
+    getUserById,
+    getTypesByUser,
+    createSpent,
+  };
 }
 export function UsersProvider({ children }) {
-  const { state, getUsers, createUser, getTypes , getAllSpents, getAllWallets, getUserById, getTypesByUser} = useUsersReducer();
+  const {
+    state,
+    getUsers,
+    createUser,
+    getTypes,
+    getAllSpents,
+    getAllWallets,
+    getUserById,
+    getTypesByUser,
+    createSpent,
+  } = useUsersReducer();
 
   return (
-    <UserContext.Provider value={{ users: state.users,currentUser: state.currentUser ,allSpents: state.spents,types: state.types , typesByUser: state.typesByUser,allWallets: state.wallets,getUsers, createUser, getAllSpents , getTypes, getAllWallets, getUserById, getTypesByUser}}>
+    <UserContext.Provider
+      value={{
+        users: state.users,
+        currentUser: state.currentUser,
+        allSpents: state.spents,
+        types: state.types,
+        typesByUser: state.typesByUser,
+        allWallets: state.wallets,
+        getUsers,
+        createUser,
+        getAllSpents,
+        getTypes,
+        getAllWallets,
+        getUserById,
+        getTypesByUser,
+        createSpent,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
-
 }

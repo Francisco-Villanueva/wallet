@@ -8,15 +8,23 @@ import Home from "./components/Home/Home";
 import Allspents from "./components/Home/Gastos/AllSpents/Allspents";
 
 function App() {
-  const { users,typesByUser, allWallets,types, getUsers, getAllWallets ,getAllSpents, getTypes} = useUsers();
+  const {
+    users,
+    typesByUser,
+    allWallets,
+    types,
+    getUsers,
+    getAllWallets,
+    getAllSpents,
+    getTypes,
+  } = useUsers();
 
   useEffect(() => {
     getUsers();
-    getAllWallets()
-    getAllSpents()
-    getTypes()
+    getAllWallets();
+    getAllSpents();
+    getTypes();
   }, []);
-
 
   // console.log({allWallets})
 
@@ -24,14 +32,20 @@ function App() {
     <>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Login listOfUsers={users}/>} />
+          <Route path="/" element={<Login listOfUsers={users} />} />
           <Route path="/register" element={<Register users={users} />} />
-          <Route path="/home" element={<Home wallets={allWallets} types={types} />} />
-          <Route path="/allSpents" element={<Allspents typesByUser={typesByUser}/>} />
+          <Route
+            path="/home"
+            element={<Home wallets={allWallets} types={types} />}
+          />
+          <Route
+            path="/allSpents"
+            element={<Allspents typesByUser={typesByUser} />}
+          />
         </Routes>
       </div>
     </>
-  )
+  );
 }
 
 export default App;

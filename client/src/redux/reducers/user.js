@@ -1,8 +1,8 @@
 export const intialState = {
   users: [],
   spents: [],
-  types:[],
-  wallets:[],
+  types: [],
+  wallets: [],
   typesByUser: null,
   currentUser: null,
 };
@@ -16,46 +16,51 @@ export const reducer = (state, action) => {
         users: actionPayload,
       };
 
-      case actionTypes.CREATE_USER:{
-        return {
-          ...state,
-          users: [...state.users, actionPayload],
-        };
-      }
+    case actionTypes.CREATE_USER: {
+      return {
+        ...state,
+        users: [...state.users, actionPayload],
+      };
+    }
 
-      case actionTypes.GET_SPENTS:
-        return {
-          ...state,
-          spents: actionPayload,  
-        };
+    case actionTypes.GET_SPENTS:
+      return {
+        ...state,
+        spents: actionPayload,
+      };
 
-      case actionTypes.GET_TYPES:{
-        return {
-          ...state,
-          types: actionPayload,
-        };
-      }
+    case actionTypes.GET_TYPES: {
+      return {
+        ...state,
+        types: actionPayload,
+      };
+    }
 
-      case actionTypes.GET_WALLETS:{
-        return {
-          ...state,
-          wallets: actionPayload,
-        };
-      }
-      case actionTypes.GET_USER_BY_ID:{
+    case actionTypes.GET_WALLETS: {
+      return {
+        ...state,
+        wallets: actionPayload,
+      };
+    }
+    case actionTypes.GET_USER_BY_ID: {
+      return {
+        ...state,
+        currentUser: actionPayload,
+      };
+    }
 
-        return {
-          ...state,
-          currentUser: actionPayload,
-        };
-      }
-
-      case actionTypes.GET_TYPES_BY_USER:{
-        return {
-          ...state,
-          typesByUser: actionPayload,
-        };
-      }
+    case actionTypes.GET_TYPES_BY_USER: {
+      return {
+        ...state,
+        typesByUser: actionPayload,
+      };
+    }
+    case actionTypes.CREATE_SPENT: {
+      return {
+        ...state,
+        spents: [...state.spents, actionPayload],
+      };
+    }
   }
   return state;
 };

@@ -4,31 +4,35 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUsers } from "../../../../hooks/useUsers";
 export default function NewSpent({ handleCloseModal, showModal }) {
-  const {types}=useUsers()
+  const { types, createSpent, currentUser } = useUsers();
   const [newGasto, setNewGsato] = useState({
-    name: "",
-    type: "",
-    place: "",
+    spentName: "",
+    typeId: "",
+    spentPlace: "",
     amount: "",
-    descripcion: "",
+    spentDescripcion: "",
     paymentProof: null,
+    userId: currentUser.userId,
   });
+
+  // console.log({ types });
   const handleInputChange = (e) => {
-    // console.log(e.target.name, e.target.value);
     setNewGsato({ ...newGasto, [e.target.name]: e.target.value });
+    console.log(newGasto);
   };
 
   const handleSubmitNewSpent = (e) => {
     e.preventDefault();
     console.log(newGasto);
-
+    createSpent(newGasto);
     setNewGsato({
-      name: "PAGO",
-      type: "TIPO",
-      place: "",
+      spentName: "",
+      typeId: "",
+      spentPlace: "",
       amount: "",
-      descripcion: "",
+      spentDescripcion: "",
       paymentProof: null,
+      userId: "",
     });
   };
   const handleFileChange = (event) => {
@@ -62,7 +66,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
                 <Form.Select
                   className="selectSty"
                   aria-label="Default select example"
-                  name="name"
+                  name="spentName"
                   onChange={(e) => handleInputChange(e)}
                 >
                   <option
@@ -87,7 +91,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
                 <Form.Select
                   className="selectSty"
                   aria-label="Default select example"
-                  name="type"
+                  name="typeId"
                   onChange={(e) => handleInputChange(e)}
                 >
                   <option
@@ -104,8 +108,8 @@ export default function NewSpent({ handleCloseModal, showModal }) {
                     TYPE
                   </option>
                   {types.map((t) => (
-                    <option key={t.tpyeId} value={t.name}>
-                      {t.name}
+                    <option key={t.typeId} value={t.typeId}>
+                      {t.typeName}
                     </option>
                   ))}
                 </Form.Select>
@@ -116,7 +120,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
                 <label className="label-newSpent">Destinatario</label>
                 <Form.Control
                   autoComplete="off"
-                  name="place"
+                  name="spentPlace"
                   type="text"
                   className="newSpent-input"
                   placeholder="Enter name"
@@ -138,7 +142,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
                 <label className="label-newSpent">Descripcion</label>
                 <Form.Control
                   autoComplete="off"
-                  name="descripcion"
+                  name="spentDescripcion"
                   className="newSpent-input"
                   type="text"
                   placeholder="Enter name"
@@ -152,124 +156,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
   );
-}
-
-{
-  /* <div className="newSpent-container">
-<h2>Cargar Gasto</h2>
-<div className="form-newspent">
-  <div className="form-newSpent-section">
-    <select
-      onChange={handleInputChange}
-      className="selectSty"
-      name="name"
-      id=""
-    >
-      <option
-        style={{
-          fontWeight: "900",
-          letterSpacing: "5px",
-          color: "#fff",
-          backgroundColor: "#3c5ba5",
-        }}
-        value=""
-        selected
-        disabled
-      >
-        PAGO
-      </option>
-      <option value="Pago con QR">Pago con QR</option>
-      <option value="Transferencia">Transferencia</option>
-      <option value="Efectivo">Efectivo</option>
-    </select>
-    <select
-      onChange={handleInputChange}
-      className="selectSty"
-      name="type"
-      id=""
-    >
-      <option
-        style={{
-          fontWeight: "900",
-          letterSpacing: "5px",
-          color: "#fff",
-          backgroundColor: "#3c5ba5",
-        }}
-        value=""
-        selected
-        disabled
-      >
-        TYPE
-      </option>
-      {TYPES.map((t) => (
-        <option value={t.name}>{t.name}</option>
-      ))}
-    </select>
-  </div>
-  <div className="form-newSpent-section form-newSpent-section-mid">
-    <div className="newSpent-input-container">
-      <label for="Destinatario" className="label-newSpent">
-        Destinatario
-      </label>
-      <input
-        name="place"
-        onChange={handleInputChange}
-        className="newSpent-input"
-        type="text"
-        placeholder="Destinatario"
-        value={newGasto.place}
-        id="miInput"
-      />
-    </div>
-    <div className="newSpent-input-container">
-      <label for="amount" className="label-newSpent">
-        $
-      </label>
-      <input
-        name="amount"
-        onChange={handleInputChange}
-        className="newSpent-input "
-        type="numer"
-        placeholder="$"
-        value={newGasto.amount}
-        id="miInput"
-      />
-    </div>
-    <div className="newSpent-input-container">
-      <label for="descripcion" className="label-newSpent">
-        Descripcion
-      </label>
-      <input
-        id="miInput"
-        name="descripcion"
-        onChange={handleInputChange}
-        className="newSpent-input descripcion"
-        type="numer"
-        placeholder="Descripcion"
-        value={newGasto.descripcion}
-      />
-    </div>
-    <div className="newSpent-input-container">
-      <label for="descripcion" className="label-newSpent">
-        Comprobante
-      </label>
-      <label htmlFor="" className="input-file">
-        <input
-          type="file"
-          accept=".jpg,.jpeg,.png,.pdf"
-          onChange={handleFileChange}
-          style={{ width: "20%", margin: "0" }}
-        />
-      </label>
-    </div>
-  </div>
-</div>
-<button className="newSpent-btn" onClick={handleSubmitNewSpent}>
-  Submit
-</button>
-</div> */
 }

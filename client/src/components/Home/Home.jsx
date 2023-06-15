@@ -11,19 +11,23 @@ import { useUsers } from "../../hooks/useUsers";
 Chart.register(ArcElement);
 
 export default function Home({ types, wallets }) {
-  const {allSpents, currentUser, typesByUser} = useUsers()
+  const { currentUser, typesByUser } = useUsers();
 
-  console.log({currentUser})
+  console.log({ currentUser });
   const params = useParams();
   const { id } = params;
-  
+
   const [showModal, setShowModal] = useState(false);
 
   // console.log("wallets", wallets);
 
   var total = currentUser.wallet.spent.reduce((a, b) => a + b.amount, 0);
   var saldo = wallets.length > 0 ? wallets[0].money - total : 0;
-  let colorOrder = types.sort((a, b) => b.spent.reduce((a, b) => a + b.amount, 0) - a.spent.reduce((a, b) => a + b.amount, 0));
+  let colorOrder = types.sort(
+    (a, b) =>
+      b.spent.reduce((a, b) => a + b.amount, 0) -
+      a.spent.reduce((a, b) => a + b.amount, 0)
+  );
   const DATA = {
     labels: colorOrder.map((t) => t.name),
     color: "white",
