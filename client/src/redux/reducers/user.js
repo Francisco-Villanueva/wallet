@@ -3,11 +3,11 @@ export const intialState = {
   spents: [],
   types: [],
   wallets: [],
-  typesByUser: null,
+  typesByUser: [],
   currentUser: null,
 };
 import { actionTypes } from "../context/user";
-export const reducer = (state, action) => {
+export const reducer = (state = intialState, action) => {
   const { type: actionType, payload: actionPayload } = action;
   switch (actionType) {
     case actionTypes.GET_USERS:
@@ -52,7 +52,7 @@ export const reducer = (state, action) => {
     case actionTypes.GET_TYPES_BY_USER: {
       return {
         ...state,
-        typesByUser: actionPayload,
+        typesByUser: state.typesByUser.concat(actionPayload),
       };
     }
     case actionTypes.CREATE_SPENT: {

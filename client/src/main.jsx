@@ -6,9 +6,9 @@ import { UsersProvider } from "./redux/context/user.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <UsersProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <UsersProvider>
       <App />
-    </BrowserRouter>
-  </UsersProvider>
+    </UsersProvider>
+  </BrowserRouter>
 );

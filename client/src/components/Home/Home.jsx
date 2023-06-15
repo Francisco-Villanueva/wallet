@@ -11,9 +11,9 @@ import { useUsers } from "../../hooks/useUsers";
 Chart.register(ArcElement);
 
 export default function Home({ types, wallets }) {
-  const { currentUser, typesByUser } = useUsers();
+  const { currentUser, typesByUser, allSpents } = useUsers();
 
-  console.log({ currentUser });
+  // console.log({ currentUser });
   const params = useParams();
   const { id } = params;
 

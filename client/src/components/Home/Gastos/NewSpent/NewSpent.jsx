@@ -18,12 +18,10 @@ export default function NewSpent({ handleCloseModal, showModal }) {
   // console.log({ types });
   const handleInputChange = (e) => {
     setNewGsato({ ...newGasto, [e.target.name]: e.target.value });
-    console.log(newGasto);
   };
 
   const handleSubmitNewSpent = (e) => {
     e.preventDefault();
-    console.log(newGasto);
     createSpent(newGasto);
     setNewGsato({
       spentName: "",
@@ -32,7 +30,7 @@ export default function NewSpent({ handleCloseModal, showModal }) {
       amount: "",
       spentDescripcion: "",
       paymentProof: null,
-      userId: "",
+      userId: currentUser.userId,
     });
   };
   const handleFileChange = (event) => {

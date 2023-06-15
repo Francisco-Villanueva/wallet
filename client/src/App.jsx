@@ -12,6 +12,7 @@ function App() {
     users,
     typesByUser,
     allWallets,
+    allSpents,
     types,
     getUsers,
     getAllWallets,
@@ -36,7 +37,9 @@ function App() {
           <Route path="/register" element={<Register users={users} />} />
           <Route
             path="/home"
-            element={<Home wallets={allWallets} types={types} />}
+            element={
+              <Home wallets={allWallets} types={types} allSpents={allSpents} />
+            }
           />
           <Route
             path="/allSpents"
