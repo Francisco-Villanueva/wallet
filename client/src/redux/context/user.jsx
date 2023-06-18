@@ -24,8 +24,6 @@ function useUsersReducer() {
   const updateLocalStorage = (user, id) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("userId", JSON.stringify(id));
-
-    
   };
   // console.log("STATE: ", state);
   const getUsers = async () => {
@@ -46,7 +44,6 @@ function useUsersReducer() {
     try {
       const res = await axios.get(`http://localhost:4000/users/${id}`);
       updateLocalStorage(res.data, res.data.userId);
-
       
       dispatch({
         type: actionTypes.GET_USER_BY_ID,
@@ -56,6 +53,7 @@ function useUsersReducer() {
       console.log({ error });
     }
   };
+
   const createUser = async (userData) => {
     try {
       const newUser = await axios.post("http://localhost:4000/users", userData);
@@ -119,6 +117,8 @@ function useUsersReducer() {
   const getTypesByUser = async (id) => {
     try {
       const res = await axios.get(`http://localhost:4000/types/${id}`);
+      const user = await axios.get(`http://localhost:4000/users/${id}`);
+      updateLocalStorage(user.data, user.data.userId);
       dispatch({
         type: actionTypes.GET_TYPES_BY_USER,
         payload: res.data,

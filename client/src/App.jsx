@@ -28,20 +28,22 @@ function App() {
   const [currentUser, setCurrentUser] = useState(storeUser);
 
   useEffect(() => {
+    console.log({storeUser}) 
     getUsers();
     getAllWallets();
     getAllSpents();
     getTypes();
-    getTypesByUser(currentUser?.userId)
+    
   }, []);
-
+  
   useEffect(() => {
+    // console.log('hola')
     setCurrentUser(storeUser);
+    // getTypesByUser(currentUser?.userId)
   }, [currentUser, allSpents, typesByUser]);
 
 
-  // const [currentUser, setUserLoged] = useState(JSON.parse(storeser));
- 
+
 
   return (
     <>
@@ -52,7 +54,7 @@ function App() {
           <Route
             path="/home"
             element={
-              <Home wallets={allWallets} types={types} allSpents={allSpents} currentUser={currentUser}/>
+              <Home currentUser={currentUser}/>
             }
           />
           <Route

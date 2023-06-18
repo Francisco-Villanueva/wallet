@@ -75,8 +75,8 @@ export default function NewSpent({ handleCloseModal,currentUser, showModal}) {
                       backgroundColor: "#3c5ba5",
                     }}
                     value=""
-                    selected
-                    disabled
+                    defaultValue={true}
+                    // disabled
                   >
                     PAGO
                   </option>
@@ -100,8 +100,8 @@ export default function NewSpent({ handleCloseModal,currentUser, showModal}) {
                       backgroundColor: "#3c5ba5",
                     }}
                     value=""
-                    selected
-                    disabled
+                    defaultValue={true}
+                    // disabled
                   >
                     TYPE
                   </option>

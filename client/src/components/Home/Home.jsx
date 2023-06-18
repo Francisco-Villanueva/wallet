@@ -11,17 +11,17 @@ import Login from "../login/Login";
 
 Chart.register(ArcElement);
 
-export default function Home({ types, wallets, currentUser}) {
-  const {  typesByUser, allSpents, getUserById , getTypesByUser, storeUser, storeUserId} = useUsers();
+export default function Home({  currentUser}) {
+  const { types} = useUsers();
   
-  // console.log({ currentUser });
-  // console.log({ storeUser });
+  
   const params = useParams();
   const { id } = params;
  
   
   const [showModal, setShowModal] = useState(false);
  
+  console.log({types})
 
   var total = currentUser?.wallet.spent.reduce((a, b) => a + b.amount, 0);
   var saldo = currentUser?.wallet.balance - total;
@@ -30,14 +30,17 @@ export default function Home({ types, wallets, currentUser}) {
       b.spent.reduce((a, b) => a + b.amount, 0) -
       a.spent.reduce((a, b) => a + b.amount, 0)
   );
+
+  
   const DATA = {
-    labels: colorOrder.map((t) => t.name),
+    labels: colorOrder.map((t) => t.typeName),
     color: "white",
     datasets: [
       {
         label: "Gastos por tipo",
         data: types.map((t) => t.mount),
-        backgroundColor: colorOrder.map((t) => t.color),
+        // backgroundColor: colorOrder.map((t) => t.color),
+        backgroundColor: ["#151a35", "#0b8661"],
         hoverBackgroundColor: ["#fff"],
         borderWidht: 0,
         border: "none",
@@ -51,7 +54,6 @@ export default function Home({ types, wallets, currentUser}) {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  // console.log("gastos hechos: ", gastosPorType, "\nsuma: ", total);
 
   return (
     <div className="home-main">
@@ -77,7 +79,7 @@ export default function Home({ types, wallets, currentUser}) {
               <Doughnut data={DATA} options={false} redraw={false} />
             </div>
             <div className="labels-container">
-              <Gastos typesByUser={typesByUser} />
+              <Gastos currentUser={currentUser}/>
             </div>
           </div>
         )}
