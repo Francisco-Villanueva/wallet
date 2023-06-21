@@ -30,6 +30,11 @@
   margin: auto;
 }
 
+.allSpents_body_body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+}
 .allSpents__body-section {
   background-color: #fff;
   border-radius: 1em;

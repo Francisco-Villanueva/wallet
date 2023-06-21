@@ -9,16 +9,21 @@
   padding: 1rem;
   box-shadow: 6px 6px 2px #00000085;
 }
-.setWallet__formCont {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
-}
+
 .setWallet-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.setWallet__formCont {
+  display: flex;
+  gap: 1em;
+  margin: 0;
+}
+.setWallet-input-container {
+  font-family: "Montserrat";
+  display: flex;
+  align-items: center;
 }
 .setWallet-input {
   font-family: "Montserrat";
@@ -28,7 +33,6 @@
   padding: 0.5em 1.3em;
   font-size: 1rem;
   font-weight: 900;
-  width: 70%;
   margin-left: 1em;
 }
 .setWallet-btn {

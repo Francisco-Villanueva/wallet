@@ -6,16 +6,23 @@ import Swal from "sweetalert2";
 import { useUsers } from "../../hooks/useUsers";
 export default function Login({ listOfUsers }) {
   // console.log(listOfUsers)
-  const { getUserById, getTypesByUser, currentUser } = useUsers();
+  const { getUserById, getTypesByUser, storeUser, clearLocalStorage } =
+    useUsers();
 
   const [exit, setExit] = useState(false);
   const [user, setUser] = useState({
     userName: "",
     userPw: "",
   });
+
+  // useEffect(() => {
+  //   clearLocalStorage();
+  // }, []);
+
+  // console.log({ storeUser });
   const [validPw, setValidPw] = useState(false);
   const navigate = useNavigate();
-  
+
   const checkUser = (usuarios, userToCheck) => {
     const aux = usuarios.filter(
       (e) =>

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { Pie, Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement } from "chart.js";
 import Gastos from "./Gastos/Gastos";
 import NewSpent from "./Gastos/NewSpent/NewSpent";
-import { Chart, ArcElement } from "chart.js";
 import NavBar from "../Navbar/NavBar";
 import { useLocation, useParams } from "react-router-dom";
 import { useUsers } from "../../hooks/useUsers";
 import Login from "../login/Login";
 
 Chart.register(ArcElement);
-
 export default function Home({ currentUser }) {
   const { typesByUser } = useUsers();
 
@@ -48,6 +47,26 @@ export default function Home({ currentUser }) {
       },
     ],
   };
+
+  const options = {
+    plugins: {
+      legend: false,
+      afterDraw: (chart) => {
+        const ctx = chart.ctx;
+        const total = chart.config.total;
+        const canvasWidth = chart.width;
+        const canvasHeight = chart.height;
+
+        ctx.restore();
+        const fontSize = (canvasHeight / 100).toFixed(2);
+        ctx.font = fontSize + "em sans-serif";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "#000";
+        ctx.fillText(total, canvasWidth / 2, canvasHeight / 2);
+        ctx.save();
+      },
+    },
+  };
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -56,10 +75,17 @@ export default function Home({ currentUser }) {
     setShowModal(false);
   };
 
+  const changeContent = () => {
+    document.getElementById("miElemento").innerHTML = "Cargar gasto";
+  };
+  const restoreContent = () => {
+    document.getElementById("miElemento").innerHTML = "+";
+  };
+
   return (
     <div className="home-main">
       <div className="navBar-container">
-        <NavBar userId={id} currentUser={currentUser} />
+        <NavBar userId={id} currentUser={currentUser} saldo={saldo} />
       </div>
       <div className="home-body">
         <div className="mounth-total-container">
@@ -73,21 +99,38 @@ export default function Home({ currentUser }) {
         ) : (
           <div className="mid">
             <div className="grafico-cont">
-              {/* <Pie data={DATA} options={true} redraw={false} /> */}
-              <div className="grafico-cont__totalGastos">
-                <h2>$ {total?.toLocaleString("de-DE")}</h2>
+              <div className="totalGastos">
+                <h2>$ {total.toLocaleString("de-DE")}</h2>
               </div>
-              <Doughnut data={DATA} options={false} redraw={false} />
+              <div className="grafico">
+                <Doughnut
+                  data={DATA}
+                  // plugins={plugins}
+                  options={options}
+                  redraw={false}
+                />
+              </div>
             </div>
             <div className="labels-container">
-              <Gastos currentUser={currentUser} />
+              <h2>Gastos</h2>
+              {typesByUser.spent ? (
+                <span>No hay gastos</span>
+              ) : (
+                <Gastos currentUser={currentUser} />
+              )}
             </div>
           </div>
         )}
       </div>
 
       <div className="newSpent-main-container">
-        <button className="home__newSpent-btn" onClick={handleShowModal}>
+        <button
+          id="miElemento"
+          className="home__newSpent-btn"
+          onClick={handleShowModal}
+          onMouseOver={changeContent}
+          onMouseOut={restoreContent}
+        >
           +
         </button>
         <div className="NewSpentComponent-Container">

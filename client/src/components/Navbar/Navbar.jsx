@@ -12,8 +12,10 @@ import User from "../User/User";
 import { useUsers } from "../../hooks/useUsers";
 
 // import User from "../User/User";
-export default function NavBar({ userName, userId, currentUser }) {
+export default function NavBar({ currentUser, saldo }) {
   // console.log("ID QUE LLEGA AL NAVBAR", userId);
+
+  const { typesByUser } = useUsers();
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -63,9 +65,7 @@ export default function NavBar({ userName, userId, currentUser }) {
           <span style={{ fontSize: ".75rem", fontWeight: "bolder" }}>
             {currentUser.userName}
           </span>
-          <span style={{ fontSize: ".75rem", color: "#fff" }}>
-            $ {currentUser.wallet.balance}
-          </span>
+          <span style={{ fontSize: ".75rem", color: "#fff" }}>$ {saldo}</span>
         </span>
 
         <div className="">

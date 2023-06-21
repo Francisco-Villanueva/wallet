@@ -39,8 +39,11 @@ export default function SetWallet({
         <Modal.Body>
           <Form onSubmit={handleSubmitBalance}>
             <div className="setWallet__formCont">
-              <Form.Group controlId="formBasicEmail">
-                <label className="label-newSpent">$</label>
+              <Form.Group
+                className="setWallet-input-container"
+                controlId="formBasicEmail"
+              >
+                <label className="label-setWallet">$</label>
                 <Form.Control
                   autoComplete="off"
                   name="amount"

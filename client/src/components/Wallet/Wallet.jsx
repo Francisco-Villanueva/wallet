@@ -52,7 +52,10 @@ export default function Wallet({ currentUser }) {
   return (
     <div className="navBar-main">
       <section className="wallet-navbar-container">
-        <NavBar currentUser={currentUser} />
+        <NavBar
+          currentUser={currentUser}
+          saldo={totalCuenta(currentUser.wallet.balance)}
+        />
       </section>
 
       <section className="wallet-body">
@@ -61,11 +64,7 @@ export default function Wallet({ currentUser }) {
             <span>Dinero disponible</span>
             <h3 style={{ margin: 0, fontSize: "2.8rem" }}>
               ${" "}
-              {currentUser.wallet.spent.length > 0
-                ? totalCuenta(currentUser.wallet.balance).toLocaleString(
-                    "de-DE"
-                  )
-                : "-loading"}
+              {totalCuenta(currentUser.wallet.balance).toLocaleString("de-DE")}
             </h3>
           </div>
           <div

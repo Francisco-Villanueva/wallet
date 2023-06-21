@@ -108,61 +108,63 @@ export default function Allspents({ typesByUser }) {
             <h1> $ {total.toLocaleString("de-DE")}</h1>
           </div>
         </section>
-        <section className="allSpents__body-section allSpents-graphics">
-          <Bar data={data} options={true} />
-        </section>
-        <section className="allSpents__body-section allSpents-gastos">
-          {/* <h3 style={{ margin: 0 }} className="allSpents-contianer__title">
+        <div className="allSpents_body_body">
+          <section className="allSpents__body-section allSpents-graphics">
+            <Bar data={data} options={true} />
+          </section>
+          <section className="allSpents__body-section allSpents-gastos">
+            {/* <h3 style={{ margin: 0 }} className="allSpents-contianer__title">
           Detalle{" "}
         </h3> */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              height: "40px",
-            }}
-          >
-            <span
+            <div
               style={{
-                fontSize: ".85em",
-                fontWeight: "600",
-                fontStyle: "italic",
-                color: "#6c757d",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
-              {filteredTypes[0].spent.length} gastos del mes
-            </span>
-            {selectedCards.length > 0 ? (
-              <button
-                onClick={handleDeleteSelected}
-                className={`btn-multipleDelete focus-in-expand  }`}
+              <span
+                style={{
+                  fontSize: ".85em",
+                  fontWeight: "600",
+                  fontStyle: "italic",
+                  color: "#6c757d",
+                }}
               >
-                {" "}
-                Eliminar seleccionados
-              </button>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="allSpents-Cards-Container">
-            {filteredTypes[0].spent.map((s) => (
-              <div
-                key={s.spentID}
-                style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
-              >
-                <input
+                {filteredTypes[0].spent.length} gastos del mes
+              </span>
+              {selectedCards.length > 0 ? (
+                <button
+                  onClick={handleDeleteSelected}
+                  className={`btn-multipleDelete focus-in-expand  }`}
+                >
+                  {" "}
+                  Eliminar seleccionados
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="allSpents-Cards-Container">
+              {filteredTypes[0].spent.map((s) => (
+                <div
                   key={s.spentID}
-                  className="allSpents-Cards-Container__checkbox"
-                  type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, s.spentId)}
-                />
+                  style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
+                >
+                  <input
+                    key={s.spentID}
+                    className="allSpents-Cards-Container__checkbox"
+                    type="checkbox"
+                    onChange={(e) => handleCheckboxChange(e, s.spentId)}
+                  />
 
-                <CardSpent spent={s} />
-              </div>
-            ))}
-          </div>
-        </section>
+                  <CardSpent spent={s} />
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

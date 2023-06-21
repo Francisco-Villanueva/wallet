@@ -21,6 +21,10 @@ export const UserContext = createContext();
 function useUsersReducer() {
   const [state, dispatch] = useReducer(reducer, intialState);
 
+  const clearLocalStorage = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+  };
   const updateLocalStorage = (user, id) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("userId", JSON.stringify(id));
@@ -202,6 +206,7 @@ function useUsersReducer() {
     setWalletBalance,
     storeUser,
     storeUserId,
+    clearLocalStorage,
   };
 }
 export function UsersProvider({ children }) {
@@ -219,6 +224,7 @@ export function UsersProvider({ children }) {
     storeUser,
     storeUserId,
     setWalletBalance,
+    clearLocalStorage,
   } = useUsersReducer();
 
   return (
@@ -242,6 +248,7 @@ export function UsersProvider({ children }) {
         storeUser,
         storeUserId,
         setWalletBalance,
+        clearLocalStorage,
       }}
     >
       {children}
