@@ -59,7 +59,7 @@ export default function Home({ currentUser }) {
   return (
     <div className="home-main">
       <div className="navBar-container">
-        <NavBar userName={"pepe"} userId={id} currentUser={currentUser} />
+        <NavBar userId={id} currentUser={currentUser} />
       </div>
       <div className="home-body">
         <div className="mounth-total-container">

@@ -33,9 +33,14 @@ router.delete("/spent/:id", deleteSpent);
 router.get("/types", getAllTpyes);
 router.post("/types", createTypes);
 
-const { getWallets, getWalletByUserId } = require("./walletServices");
+const {
+  getWallets,
+  getWalletByUserId,
+  setWalletBalance,
+} = require("./walletServices");
 
 router.get("/wallet", getWallets);
 router.get("/wallet/:userId", getWalletByUserId);
+router.put("/wallet/:userId", setWalletBalance);
 
 module.exports = router;

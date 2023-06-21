@@ -171,6 +171,21 @@ function useUsersReducer() {
     }
   };
 
+  const setWalletBalance = async (id, amount) => {
+    try {
+      await axios.put(`http://localhost:4000/wallet/${id}`, {
+        amount,
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Wallet updated!",
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   const storeUser = JSON.parse(localStorage.getItem("user"));
   const storeUserId = JSON.parse(localStorage.getItem("userId"));
   return {
@@ -184,6 +199,7 @@ function useUsersReducer() {
     getTypesByUser,
     createSpent,
     deleteSpent,
+    setWalletBalance,
     storeUser,
     storeUserId,
   };
@@ -202,6 +218,7 @@ export function UsersProvider({ children }) {
     deleteSpent,
     storeUser,
     storeUserId,
+    setWalletBalance,
   } = useUsersReducer();
 
   return (
@@ -224,6 +241,7 @@ export function UsersProvider({ children }) {
         deleteSpent,
         storeUser,
         storeUserId,
+        setWalletBalance,
       }}
     >
       {children}

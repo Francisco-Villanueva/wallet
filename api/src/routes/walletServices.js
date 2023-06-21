@@ -29,7 +29,23 @@ const getWalletByUserId = async (req, res) => {
   }
 };
 
+const setWalletBalance = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { amount } = req.body;
+    const wallet = await Wallet.findOne({ where: { userId: userId } });
+    const newBalance = wallet.balance + amount;
+    // const newBalance = amount;
+
+    await Wallet.update({ balance: newBalance }, { where: { userId: userId } });
+
+    res.status(200).json("wallet updated");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 module.exports = {
   getWallets,
   getWalletByUserId,
+  setWalletBalance,
 };

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faWallet } from "@fortawesome/free-solid-svg-icons";
 import CardSpent from "../Home/Gastos/AllSpents/spentCard/CardSpent";
 import { useUsers } from "../../hooks/useUsers";
+import SetWallet from "./WalletBalance/SetWallet";
 export default function Wallet({ currentUser }) {
   const { deleteSpent, getAllSpents, typesByUser } = useUsers();
   // console.log({ currentUser });
@@ -40,10 +41,18 @@ export default function Wallet({ currentUser }) {
     // console.log("totalSpents", totalSpents);
     return walletMoney - totalSpents;
   };
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <div className="navBar-main">
       <section className="wallet-navbar-container">
-        <NavBar />
+        <NavBar currentUser={currentUser} />
       </section>
 
       <section className="wallet-body">
@@ -64,7 +73,16 @@ export default function Wallet({ currentUser }) {
               textAlign: "end",
             }}
           >
-            <button className="ingresarMoney-btn">Ingresar dinero</button>
+            <button className="ingresarMoney-btn" onClick={handleShowModal}>
+              Ingresar dinero
+            </button>
+            <div>
+              <SetWallet
+                showModal={showModal}
+                handleCloseModal={handleCloseModal}
+                currentUser={currentUser}
+              />
+            </div>
           </div>
         </div>
 
