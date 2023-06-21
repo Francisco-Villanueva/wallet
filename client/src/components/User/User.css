@@ -32,7 +32,7 @@
   .userInfo-body__item {
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: .8rem;
     gap: 1em;
     text-transform: capitalize;
   }
@@ -49,12 +49,15 @@
     font-weight: 800;
     font-size: 1rem;
     border-radius: 0.5em;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s;
+    outline: 1px solid #3c5ca5;
+    background-color: #fff;
+    color: #3c5ca5;
   }
   .userInfo-footer__btn:hover {
     cursor: pointer;
-    outline: 1px solid purple;
-    background-color: #fff;
-    color: purple;
+    outline: 1px solid #3c5ca5;
+    background-color: #3c5ca5;
+    color: #fff;
   }
   

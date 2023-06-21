@@ -5,9 +5,8 @@ import { Chart, ArcElement } from "chart.js";
 import Gastos from "./Gastos/Gastos";
 import NewSpent from "./Gastos/NewSpent/NewSpent";
 import NavBar from "../Navbar/NavBar";
-import { useLocation, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useUsers } from "../../hooks/useUsers";
-import Login from "../login/Login";
 
 Chart.register(ArcElement);
 export default function Home({ currentUser }) {
@@ -75,11 +74,20 @@ export default function Home({ currentUser }) {
     setShowModal(false);
   };
 
+
+
+  const [elementWidth, setElementWidth] = useState(50);
+  const [elementContent, setElementContent] = useState("+");
   const changeContent = () => {
-    document.getElementById("miElemento").innerHTML = "Cargar gasto";
+    if (elementWidth <= 110) {
+      setElementWidth(150);
+      setElementContent("Cargar gasto");
+    }
   };
+
   const restoreContent = () => {
-    document.getElementById("miElemento").innerHTML = "+";
+    setElementWidth(50);
+    setElementContent("+");
   };
 
   return (
@@ -127,11 +135,12 @@ export default function Home({ currentUser }) {
         <button
           id="miElemento"
           className="home__newSpent-btn"
-          onClick={handleShowModal}
+          style={{ width: `${elementWidth}px` }}
           onMouseOver={changeContent}
           onMouseOut={restoreContent}
+          onClick={handleShowModal}
         >
-          +
+          {elementContent}
         </button>
         <div className="NewSpentComponent-Container">
           <NewSpent

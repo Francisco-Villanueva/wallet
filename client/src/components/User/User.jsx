@@ -8,7 +8,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
-export default function User({ showModal, handleCloseModal }) {
+export default function User({ showModal, handleCloseModal, currentUser }) {
   return (
     <div className={showModal ? "userInfo-container__main" : ""}>
       <Modal
@@ -28,15 +28,15 @@ export default function User({ showModal, handleCloseModal }) {
         <Modal.Body>
           <div className="userInfo-body__item">
             <FontAwesomeIcon icon={faUser} />
-            <h1>nombre</h1>
+            <h4>{currentUser.userName}</h4>
           </div>
           <div className="userInfo-body__item">
             <FontAwesomeIcon icon={faEnvelope} />
-            <h1>nombre</h1>
+            <h4>{currentUser.userEmail}</h4>
           </div>
           <div className="userInfo-body__item">
             <FontAwesomeIcon icon={faDollarSign} />
-            <h1>25.000</h1>
+            <h3>25.000</h3>
           </div>
         </Modal.Body>
         <Modal.Footer>

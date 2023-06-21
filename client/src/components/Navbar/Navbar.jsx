@@ -10,20 +10,31 @@ import {
 import { useNavigate } from "react-router-dom";
 import User from "../User/User";
 import { useUsers } from "../../hooks/useUsers";
+import Settings from "../Settings/Settings";
 
 // import User from "../User/User";
 export default function NavBar({ currentUser, saldo }) {
   // console.log("ID QUE LLEGA AL NAVBAR", userId);
 
-  const { typesByUser } = useUsers();
+  const { typesByUser, types } = useUsers();
   const [showModal, setShowModal] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
-  const handleShowModal = () => {
+  const handleShowUser = () => {
     setShowModal(true);
   };
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const handleShowSettings = () => {
+    setShowSettings(true);
+  }
+
+  const handleCloseSettings = () => {
+    setShowSettings(false);
+  }
+
   const navigation = useNavigate();
 
   return (
@@ -69,14 +80,17 @@ export default function NavBar({ currentUser, saldo }) {
         </span>
 
         <div className="">
-          <User showModal={showModal} handleCloseModal={handleCloseModal} />
+          <User showModal={showModal} handleCloseModal={handleCloseModal} currentUser={currentUser} />
+        </div>
+        <div className="">
+          <Settings showSettings={showSettings} handleCloseSettings={handleCloseSettings} types={types} />
         </div>
 
         <div className="dropdown">
-          <div className="dropdown-item" onClick={handleShowModal}>
+          <div className="dropdown-item" onClick={handleShowUser}>
             <FontAwesomeIcon icon={faUser} /> Profile
           </div>
-          <div className="dropdown-item">
+          <div className="dropdown-item" onClick={handleShowSettings}>
             <FontAwesomeIcon icon={faGear} /> Settings
           </div>
         </div>

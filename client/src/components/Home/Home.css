@@ -42,7 +42,7 @@
 .home__newSpent-btn:hover {
   font-size: 1rem;
   background-color: #3c5ca5;
-  width: 10vw;
+  /* width: 150px; */
 }
 .mounth-total-container {
   display: flex;
