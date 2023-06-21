@@ -11,17 +11,15 @@ import Login from "../login/Login";
 
 Chart.register(ArcElement);
 
-export default function Home({  currentUser}) {
-  const { types} = useUsers();
-  
-  
+export default function Home({ currentUser }) {
+  const { types } = useUsers();
+
   const params = useParams();
   const { id } = params;
- 
-  
+
   const [showModal, setShowModal] = useState(false);
- 
-  console.log({types})
+
+  console.log({ types });
 
   var total = currentUser?.wallet.spent.reduce((a, b) => a + b.amount, 0);
   var saldo = currentUser?.wallet.balance - total;
@@ -31,14 +29,13 @@ export default function Home({  currentUser}) {
       a.spent.reduce((a, b) => a + b.amount, 0)
   );
 
-  
   const DATA = {
     labels: colorOrder.map((t) => t.typeName),
     color: "white",
     datasets: [
       {
         label: "Gastos por tipo",
-        data: types.map((t) => t.mount),
+        data: types.map((t) => t.spent.reduce((a, b) => a + b.amount, 0)),
         // backgroundColor: colorOrder.map((t) => t.color),
         backgroundColor: ["#151a35", "#0b8661"],
         hoverBackgroundColor: ["#fff"],
@@ -58,7 +55,7 @@ export default function Home({  currentUser}) {
   return (
     <div className="home-main">
       <div className="navBar-container">
-        <NavBar userName={"pepe"} userId={id} currentUser={currentUser}/>
+        <NavBar userName={"pepe"} userId={id} currentUser={currentUser} />
       </div>
       <div className="home-body">
         <div className="mounth-total-container">
@@ -79,7 +76,7 @@ export default function Home({  currentUser}) {
               <Doughnut data={DATA} options={false} redraw={false} />
             </div>
             <div className="labels-container">
-              <Gastos currentUser={currentUser}/>
+              <Gastos currentUser={currentUser} />
             </div>
           </div>
         )}
@@ -90,7 +87,11 @@ export default function Home({  currentUser}) {
           +
         </button>
         <div className="NewSpentComponent-Container">
-          <NewSpent showModal={showModal} handleCloseModal={handleCloseModal} currentUser={currentUser} />
+          <NewSpent
+            showModal={showModal}
+            handleCloseModal={handleCloseModal}
+            currentUser={currentUser}
+          />
         </div>
       </div>
     </div>
