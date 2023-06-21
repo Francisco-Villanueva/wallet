@@ -52,7 +52,7 @@ export const reducer = (state = intialState, action) => {
     case actionTypes.GET_TYPES_BY_USER: {
       return {
         ...state,
-        typesByUser: state.typesByUser.concat(actionPayload),
+        typesByUser: actionPayload,
       };
     }
     case actionTypes.CREATE_SPENT: {

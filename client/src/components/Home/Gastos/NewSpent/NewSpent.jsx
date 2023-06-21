@@ -3,7 +3,7 @@ import "./NewSpent.css";
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUsers } from "../../../../hooks/useUsers";
-export default function NewSpent({ handleCloseModal,currentUser, showModal}) {
+export default function NewSpent({ handleCloseModal, currentUser, showModal }) {
   const { types, createSpent } = useUsers();
   const [newGasto, setNewGsato] = useState({
     spentName: "",
@@ -32,6 +32,7 @@ export default function NewSpent({ handleCloseModal,currentUser, showModal}) {
       paymentProof: null,
       userId: currentUser.userId,
     });
+    handleCloseModal();
   };
   const handleFileChange = (event) => {
     const file = event.target.files[0];

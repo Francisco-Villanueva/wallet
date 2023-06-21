@@ -12,18 +12,22 @@ import Login from "../login/Login";
 Chart.register(ArcElement);
 
 export default function Home({ currentUser }) {
-  const { types } = useUsers();
+  const { typesByUser } = useUsers();
 
   const params = useParams();
   const { id } = params;
 
   const [showModal, setShowModal] = useState(false);
 
-  console.log({ types });
+  console.log({ typesByUser });
 
-  var total = currentUser?.wallet.spent.reduce((a, b) => a + b.amount, 0);
+  var total = typesByUser.reduce(
+    (a, b) => a + b.spent.reduce((a, b) => a + b.amount, 0),
+    0
+  );
+
   var saldo = currentUser?.wallet.balance - total;
-  let colorOrder = types.sort(
+  let colorOrder = typesByUser.sort(
     (a, b) =>
       b.spent.reduce((a, b) => a + b.amount, 0) -
       a.spent.reduce((a, b) => a + b.amount, 0)
@@ -35,7 +39,7 @@ export default function Home({ currentUser }) {
     datasets: [
       {
         label: "Gastos por tipo",
-        data: types.map((t) => t.spent.reduce((a, b) => a + b.amount, 0)),
+        data: typesByUser.map((t) => t.spent.reduce((a, b) => a + b.amount, 0)),
         // backgroundColor: colorOrder.map((t) => t.color),
         backgroundColor: ["#151a35", "#0b8661"],
         hoverBackgroundColor: ["#fff"],

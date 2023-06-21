@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faWallet } from "@fortawesome/free-solid-svg-icons";
 import CardSpent from "../Home/Gastos/AllSpents/spentCard/CardSpent";
 import { useUsers } from "../../hooks/useUsers";
-export default function Wallet({currentUser}) {
-  const { deleteSpent, getAllSpents } = useUsers();
+export default function Wallet({ currentUser }) {
+  const { deleteSpent, getAllSpents, typesByUser } = useUsers();
   // console.log({ currentUser });
   const [selectedCards, setSelectedCards] = useState([]);
 
@@ -32,7 +32,10 @@ export default function Wallet({currentUser}) {
   const totalCuenta = (walletMoney) => {
     let totalSpents =
       currentUser.wallet.spent.length > 0
-        ? currentUser.wallet.spent.reduce((cc, t) => cc + t.amount, 0)
+        ? typesByUser.reduce(
+            (a, b) => a + b.spent.reduce((a, b) => a + b.amount, 0),
+            0
+          )
         : 0;
     // console.log("totalSpents", totalSpents);
     return walletMoney - totalSpents;
@@ -109,20 +112,22 @@ export default function Wallet({currentUser}) {
             />
           </div>
           <div className="activities-container">
-            {currentUser.wallet.spent.map((s) => (
-              <div
-                key={s.spentId}
-                style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
-              >
-                <input
-                  className="allSpents-Cards-Container__checkbox"
-                  type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, s.spentId)}
-                />
+            {typesByUser.map((m) =>
+              m.spent.map((s) => (
+                <div
+                  key={s.spentId}
+                  style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
+                >
+                  <input
+                    className="allSpents-Cards-Container__checkbox"
+                    type="checkbox"
+                    onChange={(e) => handleCheckboxChange(e, s.spentId)}
+                  />
 
-                <CardSpent spent={s} />
-              </div>
-            ))}
+                  <CardSpent spent={s} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

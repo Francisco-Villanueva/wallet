@@ -44,7 +44,7 @@ function useUsersReducer() {
     try {
       const res = await axios.get(`http://localhost:4000/users/${id}`);
       updateLocalStorage(res.data, res.data.userId);
-      
+
       dispatch({
         type: actionTypes.GET_USER_BY_ID,
         payload: res.data,
@@ -58,7 +58,7 @@ function useUsersReducer() {
     try {
       const newUser = await axios.post("http://localhost:4000/users", userData);
 
-      console.log("USER CREATED: ", newUser.data);
+      // console.log("USER CREATED: ", newUser.data);
 
       Swal.fire({
         icon: "success",
@@ -185,7 +185,7 @@ function useUsersReducer() {
     createSpent,
     deleteSpent,
     storeUser,
-    storeUserId
+    storeUserId,
   };
 }
 export function UsersProvider({ children }) {
@@ -201,7 +201,7 @@ export function UsersProvider({ children }) {
     createSpent,
     deleteSpent,
     storeUser,
-    storeUserId
+    storeUserId,
   } = useUsersReducer();
 
   return (
@@ -223,7 +223,7 @@ export function UsersProvider({ children }) {
         createSpent,
         deleteSpent,
         storeUser,
-        storeUserId
+        storeUserId,
       }}
     >
       {children}

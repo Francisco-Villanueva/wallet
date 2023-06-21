@@ -2,13 +2,9 @@ import React, { useEffect } from "react";
 import "./Gastos.css";
 import GastoCard from "./Cards/GastoCard";
 import { useUsers } from "../../../hooks/useUsers";
-export default function Gastos({currentUser}){
-  
-  const {typesByUser, getTypesByUser} = useUsers()
-  console.log(typesByUser)
-  useEffect(() => {
-    getTypesByUser(currentUser?.userId)
-  }, []);
+export default function Gastos({ currentUser }) {
+  const { typesByUser } = useUsers();
+
   const typesSorted = typesByUser.sort(
     (a, b) =>
       b.spent.reduce((a, b) => a + b.amount, 0) -
