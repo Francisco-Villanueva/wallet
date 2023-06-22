@@ -36,6 +36,13 @@ export const reducer = (state = intialState, action) => {
       };
     }
 
+    case actionTypes.CREATE_TYPES :{
+      return {
+        ...state,
+        types: [...state.types, actionPayload]
+      }
+    }
+
     case actionTypes.GET_WALLETS: {
       return {
         ...state,

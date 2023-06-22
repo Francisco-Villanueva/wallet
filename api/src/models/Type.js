@@ -12,5 +12,8 @@ module.exports = (sequelize) => {
     typeName: {
       type: DataTypes.STRING,
     },
+    typeColor: {
+      type: DataTypes.STRING
+    }
   });
 };

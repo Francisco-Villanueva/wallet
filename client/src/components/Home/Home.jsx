@@ -38,8 +38,8 @@ export default function Home({ currentUser }) {
       {
         label: "Gastos por tipo",
         data: typesByUser.map((t) => t.spent.reduce((a, b) => a + b.amount, 0)),
-        // backgroundColor: colorOrder.map((t) => t.color),
-        backgroundColor: ["#151a35", "#0b8661"],
+        backgroundColor: colorOrder.map((t) => t.typeColor? t.typeColor : '#0b8661'),
+        // backgroundColor: ["#151a35", "#0b8661"],
         hoverBackgroundColor: ["#fff"],
         borderWidht: 0,
         border: "none",

@@ -110,13 +110,14 @@ const getAllTpyes = async (req, res) => {
 };
 const createTypes = async (req, res) => {
   try {
-    const { typeName } = req.body;
+    const { typeName, typeColor } = req.body;
 
-    if (!typeName) {
+    if (!typeName || !typeColor) {
       return res.status(400).send("Data mistakes!");
     }
     const newType = await Type.create({
       typeName: typeName,
+      typeColor: typeColor
     });
 
     res.status(200).send(newType);

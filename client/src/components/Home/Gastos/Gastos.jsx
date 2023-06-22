@@ -18,6 +18,7 @@ export default function Gastos({ currentUser }) {
           key={m.typeId}
           idType={m.typeId}
           name={m.typeName}
+          color={m.typeColor? m.typeColor : '#0b8661'}
           mount={m.spent.reduce((a, b) => a + b.amount, 0)}
         />
       ))}

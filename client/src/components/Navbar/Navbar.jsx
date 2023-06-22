@@ -16,7 +16,7 @@ import Settings from "../Settings/Settings";
 export default function NavBar({ currentUser, saldo }) {
   // console.log("ID QUE LLEGA AL NAVBAR", userId);
 
-  const { typesByUser, types } = useUsers();
+  const { typesByUser, types, createTypes } = useUsers();
   const [showModal, setShowModal] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -83,7 +83,7 @@ export default function NavBar({ currentUser, saldo }) {
           <User showModal={showModal} handleCloseModal={handleCloseModal} currentUser={currentUser} />
         </div>
         <div className="">
-          <Settings showSettings={showSettings} handleCloseSettings={handleCloseSettings} types={types} />
+          <Settings showSettings={showSettings} handleCloseSettings={handleCloseSettings} types={types} createTypes={createTypes} />
         </div>
 
         <div className="dropdown">

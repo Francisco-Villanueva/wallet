@@ -7,6 +7,7 @@ export const actionTypes = {
   GET_USER_BY_ID: "GET_USER_BY_ID",
   GET_SPENTS: "GET_SPENTS",
   GET_TYPES: "GET_TYPES",
+  CREATE_TYPES : "CREATE_TYPES",
   GET_TYPES_BY_USER: "GET_TYPES_BY_USER",
   GET_WALLETS: "GET_WALLETS",
   GET_SPENTS_BY_TYPES: "GET_SPENTS_BY_TYPES",
@@ -67,6 +68,7 @@ function useUsersReducer() {
       Swal.fire({
         icon: "success",
         title: "User created!",
+        timer: 1000
         // text: "Check username submited",
       });
 
@@ -117,7 +119,25 @@ function useUsersReducer() {
       console.log({ error });
     }
   };
+ const createTypes = async (typeData)=>{
+  try {
+    const res = await axios.post("http://localhost:4000/types", typeData)
 
+    Swal.fire({
+      icon: "success",
+        title: "Type created!",
+        timer: 1000
+    }
+    )
+    dispatch({
+      type: actionTypes.CREATE_TYPES,
+      payload : res.data
+    })
+  } catch (error) {
+    console.log({ error });
+    
+  }
+ }
   const getTypesByUser = async (id) => {
     try {
       const res = await axios.get(`http://localhost:4000/types/${id}`);
@@ -202,6 +222,7 @@ function useUsersReducer() {
     getUserById,
     getTypesByUser,
     createSpent,
+    createTypes,
     deleteSpent,
     setWalletBalance,
     storeUser,
@@ -221,6 +242,7 @@ export function UsersProvider({ children }) {
     getTypesByUser,
     createSpent,
     deleteSpent,
+    createTypes,
     storeUser,
     storeUserId,
     setWalletBalance,
@@ -242,6 +264,7 @@ export function UsersProvider({ children }) {
         getTypes,
         getAllWallets,
         getUserById,
+        createTypes,
         getTypesByUser,
         createSpent,
         deleteSpent,
