@@ -65,7 +65,7 @@ export default function Allspents({ typesByUser }) {
   const handleBackPage = () => {
     navigate("/home");
   };
-  const total = filteredTypes[0].spent.reduce((acc, s) => acc + s.amount, 0);
+  const total = filteredTypes[0]?.spent.reduce((acc, s) => acc + s.amount, 0);
   // console.log(type, spents_filter);
 
   //FUNCIONALIDADES PARA EL DELETEO MÚLTIPLE
@@ -100,12 +100,12 @@ export default function Allspents({ typesByUser }) {
         <section className=" allSpents__body-section allSpents-header">
           <div>
             <h1 style={{ margin: 0 }} className="allSpents-contianer__title">
-              {filteredTypes[0].typeName}
+              {filteredTypes[0]?.typeName}
             </h1>
             <span>Abril</span>
           </div>
           <div>
-            <h1> $ {total.toLocaleString("de-DE")}</h1>
+            <h1> $ {total?.toLocaleString("de-DE")}</h1>
           </div>
         </section>
         <div className="allSpents_body_body">
@@ -132,7 +132,7 @@ export default function Allspents({ typesByUser }) {
                   color: "#6c757d",
                 }}
               >
-                {filteredTypes[0].spent.length} gastos del mes
+                {filteredTypes[0]?.spent.length} gastos del mes
               </span>
               {selectedCards.length > 0 ? (
                 <button
@@ -147,21 +147,26 @@ export default function Allspents({ typesByUser }) {
               )}
             </div>
             <div className="allSpents-Cards-Container">
-              {filteredTypes[0].spent.map((s) => (
-                <div
-                  key={s.spentID}
-                  style={{ display: "grid", gridTemplateColumns: ".2fr 7fr" }}
-                >
-                  <input
-                    key={s.spentID}
-                    className="allSpents-Cards-Container__checkbox"
-                    type="checkbox"
-                    onChange={(e) => handleCheckboxChange(e, s.spentId)}
-                  />
+              {filteredTypes[0]
+                ? filteredTypes[0].spent.map((s) => (
+                    <div
+                      key={s.spentID}
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: ".2fr 7fr",
+                      }}
+                    >
+                      <input
+                        key={s.spentID}
+                        className="allSpents-Cards-Container__checkbox"
+                        type="checkbox"
+                        onChange={(e) => handleCheckboxChange(e, s.spentId)}
+                      />
 
-                  <CardSpent spent={s} />
-                </div>
-              ))}
+                      <CardSpent spent={s} />
+                    </div>
+                  ))
+                : "No hay gastos"}
             </div>
           </section>
         </div>

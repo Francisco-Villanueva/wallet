@@ -81,6 +81,7 @@ export default function Login({ listOfUsers }) {
               placeholder="User name"
               onChange={handleInputChange}
               className="register-input"
+              autoComplete="off"
             />
             <label className="label-register">User Name</label>
           </div>

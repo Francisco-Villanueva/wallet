@@ -117,7 +117,7 @@ const createTypes = async (req, res) => {
     }
     const newType = await Type.create({
       typeName: typeName,
-      typeColor: typeColor
+      typeColor: typeColor,
     });
 
     res.status(200).send(newType);
@@ -127,6 +127,34 @@ const createTypes = async (req, res) => {
   }
 };
 
+const deleteType = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const type = await Type.findOne({
+      where: {
+        typeId: id,
+      },
+    });
+    if (type.length === 0) {
+      res.status(400).send("Type not found");
+    }
+
+    // Eliminar los registros de Spents que dependen del tipo de gasto
+    await Spent.destroy({
+      where: {
+        typeId: id,
+      },
+    });
+
+    await type.destroy({ where: { id: id } });
+
+    return res.status(200).send("Type deleted");
+  } catch (error) {
+    console.log("ERROR:  ", error);
+    res.status(404).json(error);
+  }
+};
 module.exports = {
   createSpent,
   getSpents,
@@ -134,4 +162,5 @@ module.exports = {
   getSpentsById,
   getAllTpyes,
   createTypes,
+  deleteType,
 };

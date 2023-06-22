@@ -24,6 +24,7 @@ const {
   getSpentsById,
   getAllTpyes,
   createTypes,
+  deleteType,
 } = require("./spentServices");
 
 router.post("/spent", createSpent);
@@ -32,6 +33,7 @@ router.get("/spent/:id", getSpentsById);
 router.delete("/spent/:id", deleteSpent);
 router.get("/types", getAllTpyes);
 router.post("/types", createTypes);
+router.delete("/types/:id", deleteType);
 
 const {
   getWallets,
