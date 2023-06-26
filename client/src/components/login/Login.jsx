@@ -38,7 +38,13 @@ export default function Login({ listOfUsers }) {
         setTimeout(() => navigate(`/home`), 1000);
       } else {
         setValidPw(true);
-        // alert(`Pw INCO ${aux.userPw}  !=  ${userToCheck.userPW}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Wrong password',
+          // showConfirmButton: false,
+          timer: 1500
+        })
+        
       }
     } else {
       Swal.fire({
