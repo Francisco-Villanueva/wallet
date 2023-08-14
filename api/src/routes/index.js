@@ -1,5 +1,6 @@
 const expres = require("express");
 const router = expres.Router();
+const { validateUser } = require("../middleware/auth");
 
 const {
   test,
@@ -8,9 +9,15 @@ const {
   getUsersById,
   editUser,
   getTypesByUserId,
+  setLogin,
+  secret,
 } = require("./services");
 
-router.get("/test", test);
+router.post("/login", setLogin);
+router.get("/secret", secret);
+router.get("/me", validateUser, (req, res) => {
+  res.send(req.user);
+});
 router.get("/users", getUsers);
 router.get("/users/:id", getUsersById);
 router.put("/users/:id", editUser);

@@ -4,8 +4,8 @@ import { Pie, Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 import Gastos from "./Gastos/Gastos";
 import NewSpent from "./Gastos/NewSpent/NewSpent";
-import NavBar from "../Navbar/NavBar";
-import {  useParams } from "react-router-dom";
+import NavBar from "../Navbar/Navbar";
+import { useParams } from "react-router-dom";
 import { useUsers } from "../../hooks/useUsers";
 
 Chart.register(ArcElement);
@@ -38,7 +38,9 @@ export default function Home({ currentUser }) {
       {
         label: "Gastos por tipo",
         data: typesByUser.map((t) => t.spent.reduce((a, b) => a + b.amount, 0)),
-        backgroundColor: colorOrder.map((t) => t.typeColor? t.typeColor : '#0b8661'),
+        backgroundColor: colorOrder.map((t) =>
+          t.typeColor ? t.typeColor : "#0b8661"
+        ),
         // backgroundColor: ["#151a35", "#0b8661"],
         hoverBackgroundColor: ["#fff"],
         borderWidht: 0,
@@ -73,8 +75,6 @@ export default function Home({ currentUser }) {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-
 
   const [elementWidth, setElementWidth] = useState(50);
   const [elementContent, setElementContent] = useState("+");

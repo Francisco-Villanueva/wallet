@@ -1,9 +1,43 @@
 const { Wallet, User, Spent, Type } = require("../db");
 const axios = require("axios");
 const { ANIMALES, OBJETOS, COMIDAS } = require("../aliasServices");
+const { generateToken, validateToken } = require("../../config");
 
-const test = (req, res) => {
-  res.send("hola");
+const setLogin = async (req, res) => {
+  try {
+    const { userName, userPw } = req.body;
+
+    const userToCheck = await User.findOne({
+      where: {
+        userEmail: userName,
+      },
+    });
+
+    const isPwCorrect = await userToCheck.validatePassword(userPw);
+
+    if (isPwCorrect) {
+      const payload = userToCheck;
+
+      const token = generateToken(payload);
+      res.cookie("token", token);
+
+      res.send(payload);
+    } else {
+      res.sendStatus(401);
+    }
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+const secret = async (req, res) => {
+  console.log(req.cookies);
+  const { token } = req.cookies;
+  const { user } = validateToken(token);
+
+  // console.log(user);
+  req.user = user;
+  res.send(user);
 };
 
 function generarCBU() {
@@ -134,11 +168,9 @@ const createUser = async (req, res) => {
         userName: userName,
         userEmail: userEmail,
         userPw: userPw,
-        userCvu: generarCBU(),
-        userAlias: generarALIAS(),
       });
 
-      const newWallet = await Wallet.create({
+      await Wallet.create({
         balance: 0,
         userId: newUser.userId,
       });
@@ -170,7 +202,7 @@ const getUsersById = async (req, res) => {
               where: {
                 userId: id,
               },
-            }
+            },
           },
         },
       },
@@ -189,7 +221,7 @@ const getUsersById = async (req, res) => {
 
 const getTypesByUserId = async (req, res) => {
   try {
-    const {idUser} = req.params;
+    const { idUser } = req.params;
 
     const types = await Type.findAll({
       include: {
@@ -198,10 +230,9 @@ const getTypesByUserId = async (req, res) => {
         where: {
           userId: idUser,
         },
-      }
-    }
-    )
-    
+      },
+    });
+
     if (!types) {
       return res.status(400).send("Types not found!");
     }
@@ -211,8 +242,7 @@ const getTypesByUserId = async (req, res) => {
     console.log("ERROR:  ", error);
     res.status(400).send(error);
   }
-}
-
+};
 
 const editUser = async (req, res) => {
   try {
@@ -242,10 +272,11 @@ const editUser = async (req, res) => {
   } catch (error) {}
 };
 module.exports = {
-  test,
+  secret,
   getUsers,
   getUsersById,
   createUser,
   editUser,
-  getTypesByUserId
+  getTypesByUserId,
+  setLogin,
 };

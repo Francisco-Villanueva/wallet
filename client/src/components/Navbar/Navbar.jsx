@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NavBar.css";
+import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGear,
@@ -29,11 +29,11 @@ export default function NavBar({ currentUser, saldo }) {
 
   const handleShowSettings = () => {
     setShowSettings(true);
-  }
+  };
 
   const handleCloseSettings = () => {
     setShowSettings(false);
-  }
+  };
 
   const navigation = useNavigate();
 
@@ -80,10 +80,19 @@ export default function NavBar({ currentUser, saldo }) {
         </span>
 
         <div className="">
-          <User showModal={showModal} handleCloseModal={handleCloseModal} currentUser={currentUser} />
+          <User
+            showModal={showModal}
+            handleCloseModal={handleCloseModal}
+            currentUser={currentUser}
+          />
         </div>
         <div className="">
-          <Settings showSettings={showSettings} handleCloseSettings={handleCloseSettings} types={types} createTypes={createTypes} />
+          <Settings
+            showSettings={showSettings}
+            handleCloseSettings={handleCloseSettings}
+            types={types}
+            createTypes={createTypes}
+          />
         </div>
 
         <div className="dropdown">

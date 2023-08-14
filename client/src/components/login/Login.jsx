@@ -4,6 +4,7 @@ import walletimg from "../../img/wallet.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useUsers } from "../../hooks/useUsers";
+import axios from "axios";
 export default function Login({ listOfUsers }) {
   // console.log(listOfUsers)
   const { getUserById, getTypesByUser, storeUser, clearLocalStorage } =
@@ -15,11 +16,6 @@ export default function Login({ listOfUsers }) {
     userPw: "",
   });
 
-  // useEffect(() => {
-  //   clearLocalStorage();
-  // }, []);
-
-  // console.log({ storeUser });
   const [validPw, setValidPw] = useState(false);
   const navigate = useNavigate();
 
@@ -39,12 +35,11 @@ export default function Login({ listOfUsers }) {
       } else {
         setValidPw(true);
         Swal.fire({
-          icon: 'error',
-          title: 'Wrong password',
+          icon: "error",
+          title: "Wrong password",
           // showConfirmButton: false,
-          timer: 1500
-        })
-        
+          timer: 1500,
+        });
       }
     } else {
       Swal.fire({
@@ -56,7 +51,15 @@ export default function Login({ listOfUsers }) {
   };
 
   const handleExit = () => {
-    checkUser(listOfUsers, user);
+    axios
+      .post("http://localhost:4000/login", user)
+      .then((res) => {
+        setExit(exit === true ? false : true);
+        setTimeout(() => navigate(`/home`), 1000);
+      })
+      .catch((e) => console.log("CATCH LOGIN", e));
+
+    // checkUser(listOfUsers, user);
   };
 
   const handleInputChange = (e) => {
@@ -64,9 +67,8 @@ export default function Login({ listOfUsers }) {
   };
 
   const handleRegisterClick = () => {
-    setExit(exit === true ? false : true);
-
-    setTimeout(() => navigate("/register"), 500);
+    // setExit(exit === true ? false : true);
+    // setTimeout(() => navigate("/register"), 500);
   };
   return (
     <div
@@ -76,7 +78,7 @@ export default function Login({ listOfUsers }) {
         <p className="title  ">
           Wallet <b>App</b>
         </p>
-        <img className="heartbeat" src={walletimg} alt="walletPNG" />
+        <img className="" src={walletimg} alt="walletPNG" />
       </div>
       <div className="login-bottom slide-in-top">
         <div className="login-input">

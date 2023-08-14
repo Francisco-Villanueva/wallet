@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Wallet.css";
-import NavBar from "../Navbar/NavBar";
+import NavBar from "../Navbar/Navbar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faWallet } from "@fortawesome/free-solid-svg-icons";
 import CardSpent from "../Home/Gastos/AllSpents/spentCard/CardSpent";
